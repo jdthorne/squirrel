@@ -140,7 +140,7 @@ class World {
       return [true, closestPoint.plus(closestPointToPoint)];
     }
     
-    return [true, closestPoint]; 
+    return [true, point]; 
   }
   
   load(done) {
