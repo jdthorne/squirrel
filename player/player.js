@@ -19,6 +19,7 @@ class Player {
     this.flying = false;
     this.position = new Vector();
     this.velocity = new Vector();
+    this.movement = new Vector();
     
     PIXI.loader.add("Squirrel.svg").load(() => this.setup());    
   }
@@ -96,19 +97,23 @@ class Player {
       this.position.add(this.velocity);
     }
     
-    // turn
-    if (this.velocity.x < 0) {
-      this.sprite.scale.x = -0.125;
-    } else if (this.velocity.x > 0) {
-      this.sprite.scale.x = 0.125;
-    }
-
-    // integrate                
+    // integrate      
+    let movement = this.position.minus(this.sprite).normalize();
     this.sprite.x = this.position.x;
     this.sprite.y = this.position.y;
+  
+    this.movement
+      .interpolate(movement, 0.2)
+      .normalize();
+      
+    if (this.movement.x < 0) {
+      this.sprite.scale.x = -0.125;
+    } else if (this.movement.x > 0) {
+      this.sprite.scale.x = 0.125;
+    }
     
-    if (this.velocity.length() > 0.1) {
-      this.sprite.rotation = Math.atan2(this.velocity.y, this.velocity.x);
+    if (this.movement.length() > 0.1) {
+      this.sprite.rotation = Math.atan2(this.movement.y, this.movement.x);
       if (this.sprite.scale.x < 0) { this.sprite.rotation += Math.PI; }
     }
 

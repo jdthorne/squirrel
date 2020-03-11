@@ -25,8 +25,8 @@ class Camera {
     
     // parallax
     if (this.world.background && this.world.background.sprite) {
-      this.world.background.sprite.x = -this.app.stage.x * 0.1;
-      this.world.background.sprite.y = -this.app.stage.y * 0.1;
+      this.world.background.sprite.x = -this.app.stage.x * 0.2;
+      this.world.background.sprite.y = -this.app.stage.y * 0.2;
     }
   }
 }

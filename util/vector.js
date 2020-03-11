@@ -22,6 +22,9 @@ class Vector {
   
   normalize() {
     var l = this.length();
+    
+    if (l < 0.001) { return this; }
+    
     this.x = this.x / l;
     this.y = this.y / l;
     return this;
@@ -73,6 +76,7 @@ class Vector {
   interpolate(vector, fraction) {
     this.x = (this.x * (1-fraction)) + (vector.x * fraction);
     this.y = (this.y * (1-fraction)) + (vector.y * fraction);
+    return this;
   }
 }
 
