@@ -68,7 +68,7 @@ class Navigation extends Layer {
       return [false, point];
     }
     
-    if (closestDistance > 0) { 
+    if (closestDistance > 0) {
       let closestPointToPoint = point.minus(closestPoint);
       closestPointToPoint.normalize();
       closestPointToPoint.multiplyBy(closestPath.halfWidth);

@@ -3,7 +3,7 @@ import Debug from '../util/debug.js'
 
 
 const WALK_SPEED = 6;
-const FLY_SPEED = 0.05;
+const FLY_SPEED = 0.1;
 const JUMP_SPEED = -4;
 
 const GRAB_DISTANCE = 10;
@@ -42,7 +42,7 @@ class Player {
     if (!this.sprite) { return; }
     
     let input = this.input;
-
+    
     // move    
     if (!this.flying) {      
       this.velocity.x = input.stick.x * WALK_SPEED;
@@ -61,15 +61,28 @@ class Player {
     
     // grab
     if (!input.jump && !(this.flying && this.velocity.y < 0)) {
-      let [grabbed, position] = this.world.navigation.snap(
-        this.position,
-        GRAB_DISTANCE
-      );
+      let availableSpeed = this.velocity.length();
+      let direction = this.velocity.normalized();
       
-      if (grabbed) {
+      for (var iteration = 0; iteration < 10; iteration++) {
+        let movement = direction.multipliedBy(availableSpeed);
+        let target = this.position.plus(movement);
+      
+        let [grabbed, position] = this.world.navigation.snap(
+          target,
+          GRAB_DISTANCE
+        );
+        
+        if (!grabbed) { break; }
+        
+        availableSpeed -= position.minus(this.position).length();
         this.position = position;
         this.flying = false;
+        
+        if (availableSpeed < 1) { break; }
       }
+      
+      Debug.log("iterations", iteration);
     }
     
     // fall
@@ -79,6 +92,8 @@ class Player {
       if (this.velocity.y > GRAB_DISTANCE) {
         this.velocity.y = GRAB_DISTANCE;
       }
+  
+      this.position.add(this.velocity);
     }
     
     // turn
@@ -96,8 +111,6 @@ class Player {
       this.sprite.rotation = Math.atan2(this.velocity.y, this.velocity.x);
       if (this.sprite.scale.x < 0) { this.sprite.rotation += Math.PI; }
     }
-    
-    this.position.add(this.velocity);
 
     Debug.log("position", this.position);
     Debug.log("velocity", this.velocity);
