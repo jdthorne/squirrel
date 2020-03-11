@@ -2,12 +2,12 @@ import Vector from '../util/vector.js'
 import Debug from '../util/debug.js'
 
 
-const WALK_SPEED = 20;
-const FLY_SPEED = 0.1;
-const JUMP_SPEED = -20;
+const WALK_SPEED = 6;
+const FLY_SPEED = 0.05;
+const JUMP_SPEED = -10;
 
-const GRAB_DISTANCE = 50;
-const GRAVITY = -1;
+const GRAB_DISTANCE = 10;
+const GRAVITY = -0.5;
 
 
 class Player {
@@ -28,8 +28,8 @@ class Player {
       PIXI.loader.resources["Squirrel.svg"].texture
     );
     
-    sprite.width = 256;
-    sprite.height = 256;
+    sprite.width = 64;
+    sprite.height = 64;
     
     sprite.anchor.x = 0.5;
     sprite.anchor.y = 0.5;
@@ -55,12 +55,12 @@ class Player {
     // jump
     if (input.jump && !this.flying) {
       this.flying = true;
-      this.velocity.x = input.stick.x * 12;
+      this.velocity.x = input.stick.x * WALK_SPEED;
       this.velocity.y = JUMP_SPEED;
     }
     
     // grab
-    if (!input.jump || this.velocity.y > JUMP_SPEED / 2) {
+    if (!input.jump || this.velocity.y > 0) {
       let [grabbed, position] = this.world.navigation.snap(
         this.position,
         GRAB_DISTANCE
@@ -83,14 +83,19 @@ class Player {
     
     // turn
     if (this.velocity.x < 0) {
-      this.sprite.scale.x = -0.5;
+      this.sprite.scale.x = -0.125;
     } else if (this.velocity.x > 0) {
-      this.sprite.scale.x = 0.5;
+      this.sprite.scale.x = 0.125;
     }
 
     // integrate                
     this.sprite.x = this.position.x;
     this.sprite.y = this.position.y;
+    
+    if (this.velocity.length() > 0.1) {
+      this.sprite.rotation = Math.atan2(this.velocity.y, this.velocity.x);
+      if (this.sprite.scale.x < 0) { this.sprite.rotation += Math.PI; }
+    }
     
     this.position.add(this.velocity);
 

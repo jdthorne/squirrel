@@ -21,11 +21,14 @@ world.load(() => {
 
 import Input from './player/input.js';
 import Player from './player/player.js';
+import Camera from './player/camera.js';
 
 let input = new Input(app);
 let player = new Player(app, input, world);
+let camera = new Camera(app, player);
 
 function render() {
+  camera.tick();
   player.tick();
 
   app.renderer.render(app.stage);

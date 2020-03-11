@@ -15,6 +15,8 @@ class World {
   show(app) {
     this.background.show(app);
     this.foreground.show(app);
+    
+    // this.navigation.show(app);
   }
   
   load(done) {

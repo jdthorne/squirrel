@@ -123,7 +123,14 @@ class Layer {
       pathStyle.forEach((element) => {
         let [key, value] = element.split(':');
         
-        path.style[key] = value;
+        switch (key) {
+          case "stroke-width":
+            path.width = parseFloat(value);
+            path.halfWidth = path.width / 2;
+            break;
+        }
+        
+        // path.style[key] = value;
       });
       
       this.paths.push(path);
