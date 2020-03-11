@@ -1,5 +1,4 @@
 import Debug from './util/debug.js';
-import World from './world/world.js';
 
 let app = new PIXI.Application({
   width: 256, 
@@ -11,21 +10,22 @@ app.renderer.resize(window.innerWidth, window.innerHeight);
 
 document.body.appendChild(app.view);
 
-let world = new World();
-
-world.load(() => {
-  world.show(app);
-});
-
-
-
+import World from './world/world.js';
 import Input from './player/input.js';
 import Player from './player/player.js';
 import Camera from './player/camera.js';
 
+let world = new World();
 let input = new Input(app);
 let player = new Player(app, input, world);
 let camera = new Camera(app, player, world);
+
+world.load(() => {
+  world.show(app);
+  
+  player.position.x = world.navigation.paths[0].links[0].start.x;
+  player.position.y = world.navigation.paths[0].links[0].start.y;
+});
 
 function render() {
   camera.tick();

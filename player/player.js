@@ -4,7 +4,7 @@ import Debug from '../util/debug.js'
 
 const WALK_SPEED = 6;
 const FLY_SPEED = 0.05;
-const JUMP_SPEED = -10;
+const JUMP_SPEED = -4;
 
 const GRAB_DISTANCE = 10;
 const GRAVITY = -0.5;
@@ -55,12 +55,12 @@ class Player {
     // jump
     if (input.jump && !this.flying) {
       this.flying = true;
-      this.velocity.x = input.stick.x * WALK_SPEED;
-      this.velocity.y = JUMP_SPEED;
+      this.velocity.x = (input.stick.x * WALK_SPEED);
+      this.velocity.y = (input.stick.y * WALK_SPEED) + JUMP_SPEED;
     }
     
     // grab
-    if (!input.jump || this.velocity.y > 0) {
+    if (!input.jump && !(this.flying && this.velocity.y < 0)) {
       let [grabbed, position] = this.world.navigation.snap(
         this.position,
         GRAB_DISTANCE
