@@ -9,7 +9,7 @@ const JUMP_SPEED = -4;
 const GRAB_DISTANCE = 10;
 const GRAVITY = -0.5;
 
-const ANGLE_SNAP = Math.PI / 8;
+const ANGLE_SNAP = Math.PI / 16;
 
 
 class Player {
@@ -22,7 +22,8 @@ class Player {
     this.position = new Vector();
     this.velocity = new Vector();
     this.movement = new Vector();
-    
+
+    this.running = false;    
     this.runningFrame = 0;
     
     PIXI.loader.add([
@@ -142,9 +143,6 @@ class Player {
     let movement = this.position.minus(this.spriteGroup);
     this.movement.interpolate(movement, 0.2);
     
-    this.spriteGroup.x = this.position.x;
-    this.spriteGroup.y = this.position.y;
-
     // flip
     if (this.movement.x < -1) {
       this.spriteGroup.scale.x = -1;
@@ -152,7 +150,14 @@ class Player {
       this.spriteGroup.scale.x = 1;
     }
     
-    if (this.movement.length() > 2) {
+    if (this.movement.length() > WALK_SPEED/2) { this.running = true; }
+    if (this.movement.length() < 1) { this.running = false; }
+    
+    if (this.running) {
+      // move
+      this.spriteGroup.x = this.position.x;
+      this.spriteGroup.y = this.position.y;
+
       // rotate
       this.spriteGroup.rotation = Math.round(Math.atan2(this.movement.y, this.movement.x) / ANGLE_SNAP) * ANGLE_SNAP;
       if (this.spriteGroup.scale.x < 0) { this.spriteGroup.rotation += Math.PI; }
