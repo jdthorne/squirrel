@@ -4,6 +4,8 @@ import Debug from '../util/debug.js';
 const STICK_RADIUS = 64;
 
 
+Debug.log("Loaded");
+
 class Input {
   constructor(app) {  
     // setup
@@ -12,7 +14,9 @@ class Input {
     app.view.addEventListener("touchstart", (e) => this.touch(e), false);
     app.view.addEventListener("touchmove",  (e) => this.touch(e), false);
     app.view.addEventListener("touchend",   (e) => this.touch(e), false);    
-        
+    window.addEventListener("gamepadconnected", (e) => { Debug.log("GAMEPAD"); this.gamepad = e.gamepad; });
+    window.addEventListener("gamepaddisconnected", (e) => { this.gamepad = null; });
+    
     // outputs
     this.stick = new Vector(0, 0);
     this.jump = false;
@@ -21,6 +25,27 @@ class Input {
     this.stickTouch = {
       identifier: null,
       start: new Vector()
+    }
+  }
+  
+  tick() {
+    if (navigator.getGamepads) {
+      let gamepad = navigator.getGamepads()[0];
+      
+      if (gamepad) {
+        Debug.log("axes", this.gamepad.axes.length);
+        for (var i = 0; i < this.gamepad.axes.length; i++) {
+          Debug.log("axes[" + i + "]", this.gamepad.axes[i]);
+        }
+        for (var i = 0; i < this.gamepad.buttons.length; i++) {
+          Debug.log("buttons[" + i + "]", this.gamepad.buttons[i].value);
+        }
+        
+        this.stick.x = this.gamepad.axes[0];
+        this.stick.y = -this.gamepad.axes[1];
+        
+        this.jump = this.gamepad.buttons[0].value;
+      }  
     }
   }
   

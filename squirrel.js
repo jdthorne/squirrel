@@ -28,6 +28,7 @@ world.load(() => {
 });
 
 function render() {
+  input.tick();
   camera.tick();
   player.tick();
 
