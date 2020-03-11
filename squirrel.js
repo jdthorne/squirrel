@@ -8,6 +8,9 @@ let app = new PIXI.Application({
 app.renderer.autoResize = true;
 app.renderer.resize(window.innerWidth, window.innerHeight);
 
+app.stage.scale.x = 1.5;
+app.stage.scale.y = 1.5;
+
 document.body.appendChild(app.view);
 
 import World from './world/world.js';

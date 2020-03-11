@@ -9,6 +9,8 @@ const JUMP_SPEED = -4;
 const GRAB_DISTANCE = 10;
 const GRAVITY = -0.5;
 
+const ANGLE_SNAP = Math.PI / 8;
+
 
 class Player {
   constructor(app, input, world) {
@@ -21,26 +23,65 @@ class Player {
     this.velocity = new Vector();
     this.movement = new Vector();
     
-    PIXI.loader.add("Squirrel.svg").load(() => this.setup());    
+    this.runningFrame = 0;
+    
+    PIXI.loader.add([
+      "assets/squirrel-standing.svg",
+      "assets/squirrel-running0.svg",
+      "assets/squirrel-running1.svg"
+    ]).load(() => this.setup());    
   }
   
   setup() {
-    let sprite = new PIXI.Sprite(
-      PIXI.loader.resources["Squirrel.svg"].texture
-    );
+    let group = new PIXI.Container();
+    this.app.stage.addChild(group);
+  
+    let sprites = {
+      standing: new PIXI.Sprite(
+        PIXI.loader.resources["assets/squirrel-standing.svg"].texture
+      ),
+
+      running0: new PIXI.Sprite(
+        PIXI.loader.resources["assets/squirrel-running0.svg"].texture
+      ),
+
+      running1: new PIXI.Sprite(
+        PIXI.loader.resources["assets/squirrel-running1.svg"].texture
+      )      
+    }
     
-    sprite.width = 64;
-    sprite.height = 64;
+    Object.keys(sprites).forEach((spriteName) => {
+      let sprite = sprites[spriteName];
     
-    sprite.anchor.x = 0.5;
-    sprite.anchor.y = 0.5;
+      sprite.scale.x = 0.1;
+      sprite.scale.y = 0.1;
+      
+      sprite.anchor.x = 0.5;
+      sprite.anchor.y = 0.675;
+      
+      sprite.visible = false;
+      
+      group.addChild(sprite);
+    });
+
+    this.sprites = sprites;
+    this.spriteGroup = group;    
     
-    this.app.stage.addChild(sprite);
-    this.sprite = sprite;
+    this.showSprite('standing');
+  }
+  
+  showSprite(name) {
+    Object.keys(this.sprites).forEach((spriteName) => {
+      let sprite = this.sprites[spriteName];
+      
+      sprite.visible = false;
+    });
+    
+    this.sprites[name].visible = true;
   }
   
   tick() {  
-    if (!this.sprite) { return; }
+    if (!this.spriteGroup) { return; }
     
     let input = this.input;
     
@@ -85,7 +126,7 @@ class Player {
       
       Debug.log("iterations", iteration);
     }
-    
+
     // fall
     if (this.flying) {
       this.velocity.y -= GRAVITY;
@@ -97,27 +138,38 @@ class Player {
       this.position.add(this.velocity);
     }
     
-    // integrate      
-    let movement = this.position.minus(this.sprite).normalize();
-    this.sprite.x = this.position.x;
-    this.sprite.y = this.position.y;
-  
-    this.movement
-      .interpolate(movement, 0.2)
-      .normalize();
-      
-    if (this.movement.x < 0) {
-      this.sprite.scale.x = -0.125;
-    } else if (this.movement.x > 0) {
-      this.sprite.scale.x = 0.125;
+    // integrate position
+    let movement = this.position.minus(this.spriteGroup);
+    this.movement.interpolate(movement, 0.2);
+    
+    this.spriteGroup.x = this.position.x;
+    this.spriteGroup.y = this.position.y;
+
+    // flip
+    if (this.movement.x < -1) {
+      this.spriteGroup.scale.x = -1;
+    } else if (this.movement.x > 1) {
+      this.spriteGroup.scale.x = 1;
     }
     
-    if (this.movement.length() > 0.1) {
-      this.sprite.rotation = Math.atan2(this.movement.y, this.movement.x);
-      if (this.sprite.scale.x < 0) { this.sprite.rotation += Math.PI; }
+    if (this.movement.length() > 2) {
+      // rotate
+      this.spriteGroup.rotation = Math.round(Math.atan2(this.movement.y, this.movement.x) / ANGLE_SNAP) * ANGLE_SNAP;
+      if (this.spriteGroup.scale.x < 0) { this.spriteGroup.rotation += Math.PI; }
+      
+      // animate
+      this.runningFrame += 1;
+      if (this.runningFrame >= 20) { this.runningFrame = 0; }
+      if (this.flying) { this.runningFrame = 0; }
+      
+      this.showSprite('running' + Math.floor(this.runningFrame / 10));
+    } else {
+      // stand
+      this.spriteGroup.rotation = 0;
+      this.showSprite('standing');
     }
 
-    Debug.log("position", this.position);
+    Debug.log("position", [this.spriteGroup.x, this.spriteGroup.y]);
     Debug.log("velocity", this.velocity);
     Debug.log("flying", this.flying);
   }

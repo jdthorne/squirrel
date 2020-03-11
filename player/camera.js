@@ -20,8 +20,8 @@ class Camera {
     
     this.position.interpolate(target, 0.1);
     
-    this.app.stage.x = this.position.x + (window.innerWidth / 2);
-    this.app.stage.y = this.position.y + (window.innerHeight / 2);
+    this.app.stage.x = (this.position.x * this.app.stage.scale.x) + (window.innerWidth / 2);
+    this.app.stage.y = (this.position.y * this.app.stage.scale.y) + (window.innerHeight / 2);
     
     // parallax
     if (this.world.background && this.world.background.sprite) {

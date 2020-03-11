@@ -65,7 +65,7 @@ class Input {
     if (!stickTouch) {
       // locate a new one
       stickTouch = touches.find(
-        (t) => { return t.pageX < this.app.stage.width / 2; }
+        (t) => { return t.pageX < window.innerWidth / 2; }
       );
       
       if (stickTouch) {
@@ -102,7 +102,7 @@ class Input {
   
   touchButtons(touches) {
     let jump = touches.find(
-      (t) => { return t.pageX > this.app.stage.width / 2; }
+      (t) => { return t.pageX > window.innerWidth / 2; }
     );
     
     this.jump = jump;
