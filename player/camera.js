@@ -7,12 +7,25 @@ class Camera {
     this.player = player;
     this.world = world;
     
+    this.zoom = 1.0;
+    
     this.position = new Vector();
   }
   
   tick() {
     Debug.log("camera.player", this.player.position);
+            
+    // zoom    
+    let zoom = 1.5 - (this.player.movement.length() / 12);
+    if (zoom > 2.0) { zoom = 2.0; }
+    if (zoom < 1.0) { zoom = 1.0; }
     
+    this.zoom = (zoom * 0.01) + (this.zoom * 0.99);
+    
+    this.app.stage.scale.x = this.zoom;
+    this.app.stage.scale.y = this.zoom;
+
+    // pan
     let target = new Vector(
       -this.player.position.x,
       -this.player.position.y
@@ -25,8 +38,8 @@ class Camera {
     
     // parallax
     if (this.world.background && this.world.background.sprite) {
-      this.world.background.sprite.x = -this.app.stage.x * 0.2;
-      this.world.background.sprite.y = -this.app.stage.y * 0.2;
+      this.world.background.sprite.x = -this.position.x * 0.2;
+      this.world.background.sprite.y = -this.position.y * 0.2;
     }
   }
 }
