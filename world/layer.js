@@ -54,7 +54,13 @@ class Layer {
       new PIXI.Texture.from(uri)
     );
 
+    this.sprite = sprite;
     app.stage.addChild(sprite);
+  }
+  
+  scale(value) {
+    this.sprite.scale.x = value;
+    this.sprite.scale.y = value;
   }
   
   load(dom) {

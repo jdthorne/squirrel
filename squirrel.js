@@ -25,7 +25,7 @@ import Camera from './player/camera.js';
 
 let input = new Input(app);
 let player = new Player(app, input, world);
-let camera = new Camera(app, player);
+let camera = new Camera(app, player, world);
 
 function render() {
   camera.tick();
