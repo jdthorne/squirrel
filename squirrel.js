@@ -8,8 +8,6 @@ let app = new PIXI.Application({
 });
 app.renderer.autoResize = true;
 app.renderer.resize(window.innerWidth, window.innerHeight);
-// app.stage.scale.x = 0.5;
-// app.stage.scale.y = 0.5;
 
 document.body.appendChild(app.view);
 
@@ -19,13 +17,10 @@ world.load(() => {
   world.show(app);
 });
 
-/*
-6899c9
 
-import Input from './input.js';
-import Vector from './vector.js';
-import Player from './player.js';
 
+import Input from './player/input.js';
+import Player from './player/player.js';
 
 let input = new Input(app);
 let player = new Player(app, input, world);
@@ -38,6 +33,5 @@ function render() {
 }
 
 render();
-*/
 
 Debug.log("startup complete");

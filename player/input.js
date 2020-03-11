@@ -1,7 +1,8 @@
-import Vector from './vector.js'
-import Debug from './debug.js';
+import Vector from '../util/vector.js'
+import Debug from '../util/debug.js';
 
 const STICK_RADIUS = 64;
+
 
 class Input {
   constructor(app) {  

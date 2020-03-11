@@ -1,5 +1,5 @@
-import Vector from './vector.js'
-import Debug from './debug.js'
+import Vector from '../util/vector.js'
+import Debug from '../util/debug.js'
 
 
 const WALK_SPEED = 20;
@@ -61,7 +61,7 @@ class Player {
     
     // grab
     if (!input.jump || this.velocity.y > JUMP_SPEED / 2) {
-      let [grabbed, position] = this.world.snap(
+      let [grabbed, position] = this.world.navigation.snap(
         this.position,
         GRAB_DISTANCE
       );

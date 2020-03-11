@@ -1,8 +1,8 @@
 var logs = {};
 
 var debug = {
-  log: function(item, value) {
-    if (value) {
+  log: function(item, value = null) {
+    if (value != null) {
       logs[item] = value;
     } else {
       if (!logs.messages) { logs.messages = []; }
