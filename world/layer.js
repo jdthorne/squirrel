@@ -125,19 +125,21 @@ class Layer {
         previousPoint = point;
       });
       
-      let pathStyle = domPath.getAttribute("style").split(";");
-      pathStyle.forEach((element) => {
-        let [key, value] = element.split(':');
-        
-        switch (key) {
-          case "stroke-width":
-            path.width = parseFloat(value);
-            path.halfWidth = path.width / 2;
-            break;
-        }
-        
-        // path.style[key] = value;
-      });
+      if (domPath.getAttribute("style")) {
+        let pathStyle = domPath.getAttribute("style").split(";");
+        pathStyle.forEach((element) => {
+          let [key, value] = element.split(':');
+          
+          switch (key) {
+            case "stroke-width":
+              path.width = parseFloat(value);
+              path.halfWidth = path.width / 2;
+              break;
+          }
+          
+          // path.style[key] = value;
+        });
+      }
       
       this.paths.push(path);
     });

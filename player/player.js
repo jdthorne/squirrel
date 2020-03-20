@@ -3,7 +3,7 @@ import Debug from '../util/debug.js'
 
 
 const WALK_SPEED = 6;
-const FLY_SPEED = 0.1;
+const FLY_SPEED = 0.2;
 const JUMP_SPEED = -4;
 
 const GRAB_DISTANCE = 10;
@@ -25,12 +25,8 @@ class Player {
 
     this.running = false;    
     this.runningFrame = 0;
-    
-    PIXI.loader.add([
-      "assets/squirrel-standing.svg",
-      "assets/squirrel-running0.svg",
-      "assets/squirrel-running1.svg"
-    ]).load(() => this.setup());    
+
+    this.setup();    
   }
   
   setup() {
@@ -118,8 +114,10 @@ class Player {
         
         if (!grabbed) { break; }
         
+        if (this.flying) { this.runningFrame = -1; }
+
         availableSpeed -= position.minus(this.position).length();
-        this.position = position;
+        this.position = position;        
         this.flying = false;
         
         if (availableSpeed < 1) { break; }
@@ -163,7 +161,8 @@ class Player {
       if (this.spriteGroup.scale.x < 0) { this.spriteGroup.rotation += Math.PI; }
       
       // animate
-      this.runningFrame += 1;
+      if (this.runningFrame < 0) { this.runningFrame = 10; }
+      this.runningFrame += this.movement.length() / WALK_SPEED;
       if (this.runningFrame >= 20) { this.runningFrame = 0; }
       if (this.flying) { this.runningFrame = 0; }
       

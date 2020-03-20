@@ -15,27 +15,36 @@ import Input from './player/input.js';
 import Player from './player/player.js';
 import Camera from './player/camera.js';
 
-let world = new World();
-let input = new Input(app);
-let player = new Player(app, input, world);
-let camera = new Camera(app, player, world);
+PIXI.loader.add([
+  "assets/squirrel-standing.svg",
+  "assets/squirrel-running0.svg",
+  "assets/squirrel-running1.svg",
+  "assets/snail-slug.svg"
+]).load(() => {  
+  let world = new World();
+    
+  world.load(() => {
+    world.show(app);
+    
+    let input = new Input(app);
+    let player = new Player(app, input, world);
+    let camera = new Camera(app, player, world);
 
-world.load(() => {
-  world.show(app);
+    player.position.x = world.navigation.paths[0].links[0].start.x;
+    player.position.y = world.navigation.paths[0].links[0].start.y;
   
-  player.position.x = world.navigation.paths[0].links[0].start.x;
-  player.position.y = world.navigation.paths[0].links[0].start.y;
+    function render() {
+      world.tick();
+      input.tick();
+      camera.tick();
+      player.tick();
+    
+      app.renderer.render(app.stage);
+      requestAnimationFrame(render);
+    }
+    
+    render();
+    
+    Debug.log("startup complete");
+  });
 });
-
-function render() {
-  input.tick();
-  camera.tick();
-  player.tick();
-
-  app.renderer.render(app.stage);
-  requestAnimationFrame(render);
-}
-
-render();
-
-Debug.log("startup complete");

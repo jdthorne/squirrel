@@ -1,6 +1,7 @@
 import Debug from '../util/debug.js'
 
 import Navigation from './navigation.js'
+import Enemies from './enemies.js'
 import Layer from './layer.js'
 
 class World {
@@ -8,6 +9,7 @@ class World {
     this.navigation = new Navigation();
     this.foreground = new Layer();
     this.background = new Layer();
+    this.enemies = new Enemies();    
 
     this.load();
   }
@@ -18,7 +20,13 @@ class World {
     
     this.foreground.show(app);
     
+    this.enemies.show(app);
+    
     // this.navigation.show(app);
+  }
+  
+  tick() {
+    this.enemies.tick();
   }
   
   load(done) {
@@ -38,7 +46,8 @@ class World {
           let loadInto = {
             A: this.foreground,
             B: this.background,
-            N: this.navigation
+            N: this.navigation,
+            E: this.enemies
           }[id[0]];
           
           if (loadInto) { loadInto.load(group); }

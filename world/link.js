@@ -18,6 +18,10 @@ class Link {
     this.length = this.startToEnd.length();
   }
   
+  pointAtLength(length) {
+    return this.start.plus(this.direction.multipliedBy(length));
+  }
+  
   subdivide(t) {
     let points = this.points;
     
