@@ -22,7 +22,6 @@ PIXI.loader.add([
   "assets/snail-slug.svg"
 ]).load(() => {  
   let world = new World();
-    
   world.load(() => {
     world.show(app);
     

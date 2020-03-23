@@ -1,5 +1,5 @@
 
-const SPEED = 1;
+const SPEED = 0.5;
 
 
 class SnailSlug {
@@ -30,8 +30,8 @@ class SnailSlug {
     Object.keys(sprites).forEach((spriteName) => {
       let sprite = sprites[spriteName];
     
-      sprite.scale.x = 0.1;
-      sprite.scale.y = 0.1;
+      sprite.scale.x = 0.075;
+      sprite.scale.y = 0.075;
       
       sprite.anchor.x = 0.5;
       sprite.anchor.y = 0.675;
@@ -72,13 +72,18 @@ class SnailSlug {
     }
     
     this.position = this.path.pointAtLength(this.distance);
-    Debug.log("snailSlug.point", this.position);
+    
+    let dx = this.position.x - this.spriteGroup.x;
+    if (dx < 0) {
+      this.spriteGroup.scale.x = -1;
+    } else {
+      this.spriteGroup.scale.x = 1;
+    }
+    
+    this.spriteGroup.scale.y = 1 + (Math.sin(this.distance * 0.15) * 0.1);
     
     this.spriteGroup.x = this.position.x;
     this.spriteGroup.y = this.position.y;
-    
-    Debug.log("snailSlug.position", this.distance);
-    Debug.log("snailSlug.length", this.pathLength);
   }
 }
 

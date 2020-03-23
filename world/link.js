@@ -59,8 +59,10 @@ class Link {
   split() {
     let left = this.subdivide(0.5);
     this.points.reverse();
-    let right = this.subdivide(0.5);
+    let rightReversed = this.subdivide(0.5);
     this.points.reverse();
+    
+    let right = new Link(rightReversed.points.reverse());
     
     return [left, right];
   }

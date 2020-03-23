@@ -20,17 +20,15 @@ class Path {
   
   pointAtLength(length) {
     var point = null;
-  
-    this.links.forEach((link) => {
-      if (length <= link.length) {
-        point = link.pointAtLength(length)
-      } else {
-        length -= link.length;
-      }
-    });
     
-    if (point) {
-      return point;
+    for (var linkIndex = 0; linkIndex < this.links.length; linkIndex++) {
+      var link = this.links[linkIndex];
+      
+      if (length <= link.length) {
+        return link.pointAtLength(length);
+      }
+      
+      length -= link.length;
     }
     
     return this.links[this.links.length - 1].end;

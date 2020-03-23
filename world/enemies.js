@@ -28,13 +28,15 @@ class Enemies extends Layer {
   
   load(dom) {
     super.load(dom);
-    return;
+    
+    this.paths.forEach((path) => {
+      path.splitDownTo(25);
+    });
+
 
     let id = dom.getAttribute("id");
     let type = id.substr(2);
     
-    Debug.log("Loading " + type);
-
     let enemyClass = ENEMY_CLASSES[type];
     
     if (!enemyClass) { return; }

@@ -10,8 +10,6 @@ class World {
     this.foreground = new Layer();
     this.background = new Layer();
     this.enemies = new Enemies();    
-
-    this.load();
   }
 
   show(app) {
