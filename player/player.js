@@ -50,8 +50,8 @@ class Player {
     Object.keys(sprites).forEach((spriteName) => {
       let sprite = sprites[spriteName];
     
-      sprite.scale.x = 0.1;
-      sprite.scale.y = 0.1;
+      sprite.scale.x = 0.075;
+      sprite.scale.y = 0.075;
       
       sprite.anchor.x = 0.5;
       sprite.anchor.y = 0.675;
