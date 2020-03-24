@@ -1,3 +1,4 @@
+
 class Vector {
   constructor(x = {}, y = null) {
     if (y) {

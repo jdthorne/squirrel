@@ -16,7 +16,7 @@ class Camera {
     Debug.log("camera.player", this.player.position);
             
     // zoom    
-    let zoom = 1.7 - (this.player.movement.length() / 12);
+    let zoom = 1.7 - (this.player.velocity.length() / 12);
     if (zoom > 2.0) { zoom = 2.0; }
     if (zoom < 1.0) { zoom = 1.0; }
     

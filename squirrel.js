@@ -31,6 +31,7 @@ PIXI.loader.add([
 
     player.position.x = world.navigation.paths[0].links[0].start.x;
     player.position.y = world.navigation.paths[0].links[0].start.y;
+    player.show(app);
   
     function render() {
       world.tick();

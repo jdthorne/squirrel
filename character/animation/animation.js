@@ -5,7 +5,31 @@ class Animation {
     this.assets = assets;
   }
   
-  setup(group) {
+  activate() {
+    this.character.animation = this;
+    
+    Object.keys(this.character.animations).forEach((animationName) => {
+      let animation = this.character.animations[animationName];
+      
+      if (animation == this) {
+        animation.show();
+      } else {
+        animation.hide();
+      }
+    });
+  }
+  
+  show() {
+    if (!this.sprites) { return; }
+    this.sprites[0].visible = true;
+  }
+  
+  hide() {
+    if (!this.sprites) { return; }
+    this.sprites.forEach((s) => { s.visible = false });
+  }
+  
+  setup(group, options) {
     this.sprites = this.assets.map((asset) => {
       let sprite = new PIXI.Sprite(
         PIXI.loader.resources[asset].texture
@@ -24,7 +48,9 @@ class Animation {
       return sprite;
     });
     
-    this.sprites[0].visible = true;
+    if (!options || options.visible != false) {
+      this.sprites[0].visible = true;
+    }
   }
   
   animate(progress) {

@@ -6,6 +6,10 @@ class Movement {
     this.character = character;
   }
   
+  activate() {
+    this.character.movement = this;
+  }
+  
   tick() {
   }
 }
