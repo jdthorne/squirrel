@@ -28,17 +28,19 @@ class Patrol extends Movement {
     
     this.character.position = this.path.pointAtLength(this.distance);
     
-    let dx = this.character.position.x - this.character.spriteGroup.x;
+    let dx = this.character.position.x - this.character.group.x;
     if (dx < 0) {
-      this.character.spriteGroup.scale.x = -1;
+      this.character.group.scale.x = -1;
     } else {
-      this.character.spriteGroup.scale.x = 1;
+      this.character.group.scale.x = 1;
     }
     
-    this.character.spriteGroup.scale.y = 1 + (Math.sin(this.distance * 0.15) * 0.1);
+    if (this.character.animation) {
+      this.character.animation.animate(this.distance * 0.15);
+    }
     
-    this.character.spriteGroup.x = this.character.position.x;
-    this.character.spriteGroup.y = this.character.position.y;
+    this.character.group.x = this.character.position.x;
+    this.character.group.y = this.character.position.y;
   }
 }
 
