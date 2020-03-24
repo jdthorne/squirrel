@@ -11,8 +11,8 @@ app.renderer.resize(window.innerWidth, window.innerHeight);
 document.body.appendChild(app.view);
 
 import World from './world/world.js';
+import Player from './character/player.js';
 import Input from './player/input.js';
-import Player from './player/player.js';
 import Camera from './player/camera.js';
 
 PIXI.loader.add([

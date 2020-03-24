@@ -1,14 +1,15 @@
 
+import Character from './character.js';
+import Patrol from './movement/patrol.js';
+
 const SPEED = 0.5;
 
 
-class SnailSlug {
+class SnailSlug extends Character {
   constructor(path) {
-    this.path = path;
+    super();   
     
-    this.pathLength = path.length();
-    this.distance = 0;
-    this.direction = 1;
+    this.movement = new Patrol(this, path, SPEED); 
   }
   
   show(app) {
@@ -57,33 +58,10 @@ class SnailSlug {
     this.sprites[name].visible = true;
   }
   
-  tick() {  
+  tick() {    
     if (!this.spriteGroup) { return; }
     
-    this.distance += SPEED * this.direction;
-    
-    if (this.distance < 0) {
-      this.direction = 1;
-      this.distance = 0;
-    }
-    if (this.distance > this.pathLength) {
-      this.direction = -1;
-      this.distance = this.pathLength;
-    }
-    
-    this.position = this.path.pointAtLength(this.distance);
-    
-    let dx = this.position.x - this.spriteGroup.x;
-    if (dx < 0) {
-      this.spriteGroup.scale.x = -1;
-    } else {
-      this.spriteGroup.scale.x = 1;
-    }
-    
-    this.spriteGroup.scale.y = 1 + (Math.sin(this.distance * 0.15) * 0.1);
-    
-    this.spriteGroup.x = this.position.x;
-    this.spriteGroup.y = this.position.y;
+    super.tick();
   }
 }
 

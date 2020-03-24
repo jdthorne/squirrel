@@ -1,3 +1,6 @@
+
+import Character from './character.js';
+
 import Vector from '../util/vector.js'
 import Debug from '../util/debug.js'
 
@@ -12,8 +15,10 @@ const GRAVITY = -0.5;
 const ANGLE_SNAP = Math.PI / 16;
 
 
-class Player {
+class Player extends Character {
   constructor(app, input, world) {
+    super({});
+    
     this.app = app;
     this.input = input;
     this.world = world;

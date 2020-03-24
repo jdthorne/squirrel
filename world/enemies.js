@@ -1,5 +1,6 @@
+
 import Layer from './layer.js'
-import SnailSlug from '../enemy/snail-slug.js'
+import SnailSlug from '../character/snail-slug.js'
 
 
 const ENEMY_CLASSES = {
