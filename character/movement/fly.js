@@ -15,7 +15,7 @@ class Fly extends Movement {
   
   control(input) {
     // grab?
-    if (!input.jump && this.character.velocity.y > 0) {
+    if (!input.jump) {
       let [grabbed, position] = this.navigation.snap(
         this.character.position,
         GRAB_DISTANCE

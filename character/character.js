@@ -29,6 +29,7 @@ class Character {
   
   tick() {
     if (this.movement) { this.movement.tick(); }
+    if (this.combat) { this.combat.tick(); }
     
     if (this.group) {
       this.group.position.x = this.position.x;
@@ -39,10 +40,6 @@ class Character {
       
       this.group.rotation = this.rotation;
     }
-  }
-  
-  die() {
-    this.movement = new Fall(this);
   }
 }
 

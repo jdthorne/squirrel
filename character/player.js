@@ -5,6 +5,7 @@ import Climb from './movement/climb.js';
 import Fly from './movement/fly.js';
 import Attack from './movement/attack.js';
 import Fall from './movement/fall.js';
+import LeapCombat from './combat/leap-combat.js';
 
 import Frames from './animation/frames.js';
 
@@ -35,6 +36,8 @@ class Player extends Character {
     
     this.movements.climb.activate();
     this.animations.stand.activate();
+    
+    this.combat = new LeapCombat(this);
     
     this.app = app;
     this.input = input;
