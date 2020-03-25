@@ -28,6 +28,8 @@ PIXI.loader.add([
     let input = new Input(app);
     let player = new Player(app, input, world);
     let camera = new Camera(app, player, world);
+    
+    window.player = player;
 
     player.position.x = world.navigation.paths[0].links[0].start.x;
     player.position.y = world.navigation.paths[0].links[0].start.y;

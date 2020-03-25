@@ -1,9 +1,6 @@
 
 import Vector from '../../util/vector.js';
 
-// const ANGLE_SNAP = Math.PI / 16;
-// const ANGLE_SNAP = Math.PI / 128;
-
 
 class Movement {
   constructor(character) {
@@ -11,7 +8,14 @@ class Movement {
   }
   
   activate() {
+    if (this.character.movement) {
+      this.character.movement.deactivate();
+    }
+    
     this.character.movement = this;
+  }
+  
+  deactivate() {
   }
   
   tick() {

@@ -25,7 +25,7 @@ class Climb extends Movement {
       this.character.velocity.x = (input.stick.x * WALK_SPEED);
       this.character.velocity.y = (input.stick.y * WALK_SPEED) + JUMP_SPEED;
 
-      this.character.movements.fly.activate();
+      this.character.movements.attack.activate();
       
       return;
     }

@@ -3,6 +3,8 @@ import Character from './character.js';
 
 import Climb from './movement/climb.js';
 import Fly from './movement/fly.js';
+import Attack from './movement/attack.js';
+import Fall from './movement/fall.js';
 
 import Frames from './animation/frames.js';
 
@@ -15,14 +17,17 @@ class Player extends Character {
     super();
     
     this.movements = {
-      climb: new Climb(this, world.navigation),
-      fly:   new Fly(this, world.navigation)
+      climb:  new Climb(this, world.navigation),
+      attack: new Attack(this, world.navigation),
+      fly:    new Fly(this, world.navigation),
+      fall:   new Fall(this, world.navigation)
     }
     
     this.animations = {
-      stand: new Frames(this, ["assets/squirrel-standing.svg"]),
-      fly:   new Frames(this, ["assets/squirrel-running0.svg"]),
-      run:   new Frames(this, [
+      stand:  new Frames(this, ["assets/squirrel-standing.svg"]),
+      attack: new Frames(this, ["assets/squirrel-running0.svg"]),
+      fly:    new Frames(this, ["assets/squirrel-running1.svg"]),
+      run:    new Frames(this, [
         "assets/squirrel-running0.svg",
         "assets/squirrel-running1.svg",
       ]),
@@ -34,12 +39,25 @@ class Player extends Character {
     this.app = app;
     this.input = input;
     this.world = world;
+    
+    this.world.player = this;
   }
   
   tick() {
     super.tick();
     
     this.movement.control(this.input);
+    
+    Debug.log("player.position", this.position);
+    if (this.position.x < 0) { this.position.x = 0; }
+    if (this.position.x > 2050) { this.position.x = 2050; }
+    if (this.position.y > 1500) { this.position.y = 1500; }
+  }
+  
+  hit() {
+    if (this.movement == this.movements.attack) { return; }
+    
+    this.movements.fall.activate();
   }
 }
 

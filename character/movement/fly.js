@@ -40,6 +40,12 @@ class Fly extends Movement {
     this.character.position.y += this.character.velocity.y;
    
     // animate 
+    this.animate();
+  }
+  
+  animate() {
+    Debug.log("animate", "fly");
+    
     this.character.animations.fly.activate();
     this.aim(this.character.velocity);
   }

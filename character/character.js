@@ -1,5 +1,6 @@
 
 import Vector from '../util/vector.js';
+import Fall from './movement/fall.js';
 
 
 class Character {
@@ -38,6 +39,10 @@ class Character {
       
       this.group.rotation = this.rotation;
     }
+  }
+  
+  die() {
+    this.movement = new Fall(this);
   }
 }
 
