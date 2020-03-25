@@ -10,13 +10,19 @@ class TouchCombat extends Combat {
 
   tick() {
     if (this.dead) { return; }
+    
+    this.closestEnemyDistance = Infinity;
+    this.closestEnemy = null;
   
-    this.enemies().forEach((enemy) => {
-      if (!enemy.combat.vulnerable()) { return; }
-      
+    this.enemies().forEach((enemy) => {      
       let distance = this.character.position.minus(enemy.position).length();
       
-      if (distance < this.range) {
+      if (distance < this.closestEnemyDistance) {
+        this.closestEnemyDistance = distance;
+        this.closestEnemy = enemy;
+      }
+      
+      if (enemy.combat.vulnerable() && distance < this.range) {
         enemy.combat.hit();
       }
     });

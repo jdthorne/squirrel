@@ -37,7 +37,7 @@ class Fall extends Movement {
     this.cooldown -= 1;
     
     if (this.cooldown < 0) {
-      this.character.movements.fly.activate();
+      this.character.movements.soar.activate();
     }
   }
 }

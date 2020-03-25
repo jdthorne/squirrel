@@ -36,10 +36,11 @@ class Patrol extends Movement {
       smooth = false;
     }
     
-    this.character.position = this.path.pointAtLength(this.distance);
+    this.point = this.path.pointAtLength(this.distance);
+    this.character.position = this.point.clone();
     
     if (this.character.animation) {
-      this.character.animation.animate(0.05);
+      this.character.animation.animate(0.02 * this.speed);
     }
     
     if (this.options.level) {

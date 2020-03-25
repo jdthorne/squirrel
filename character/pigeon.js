@@ -2,7 +2,7 @@
 import Character from './character.js';
 
 import Patrol from './movement/patrol.js';
-// import Fly from './movement/fly.js';
+import Fly from './movement/fly.js';
 
 import Frames from './animation/frames.js';
 import TouchCombat from './combat/touch-combat.js';
@@ -26,7 +26,8 @@ class Pigeon extends Character {
 
     this.movements = {
       patrol: new Patrol(this, path, SPEED, { level: true }),
-      // fly: new Fly(this, SPEED * 2)
+      escape: new Fly(this, SPEED * 4),
+      cruise: new Fly(this, SPEED),
     };
     
     this.movements.patrol.activate();
@@ -37,11 +38,29 @@ class Pigeon extends Character {
   tick() {
     super.tick();
     
-    /*
+    // run away?
+    let enemy = this.combat.closestEnemy;
+    if (!enemy) { return; }
+    if (enemy.combat.vulnerable()) { return; }
+    
     if (this.combat.closestEnemyDistance < ESCAPE_DISTANCE) {
-      this.movements.escape.activate(this.combat.closestEnemy);
+      let runAway = this.position.minus(enemy.position).normalized().multipliedBy(ESCAPE_DISTANCE * 2);
+      let runAwayTarget = this.position.plus(runAway);
+      
+      this.movements.escape.activate(
+        runAwayTarget, 
+        () => { 
+          this.returnToPatrol(); 
+        }
+      );
     }
-    */
+  }
+  
+  returnToPatrol() {
+    this.movements.cruise.activate(
+      this.movements.patrol.point,
+      () => { this.movements.patrol.activate(); }
+    );
   }
 }
 
