@@ -19,7 +19,7 @@ class Character {
     
     if (this.animations) {
       Object.keys(this.animations).forEach((a) => {
-        this.animations[a].setup(group, { visible: false })
+        this.animations[a].setup(group)
       });
     } else if (this.animation) {
       this.animation.setup(group);
@@ -37,30 +37,6 @@ class Character {
       this.group.scale.y = this.scale.y;
       
       this.group.rotation = this.rotation;
-    }
-  }
-  
-  aim(direction, angle_snap) {
-    if (!direction) {
-      this.scale.x = 1;
-      this.rotation = 0;
-      return;
-    }
-  
-    direction = direction.normalized();
-  
-    if (direction.x < 0.2) {
-      this.scale.x = -1;
-    } else if (direction.x > 0.2) {
-      this.scale.x = 1;
-    }
-    
-    this.rotation = Math.round(
-      Math.atan2(direction.y, direction.x) / angle_snap
-    ) * angle_snap;
-    
-    if (this.scale.x < 0) { 
-      this.rotation += Math.PI;
     }
   }
 }

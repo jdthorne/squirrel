@@ -50,7 +50,6 @@ class Player extends Character {
     super.tick();
     
     this.movement.control(this.input);
-    this.animation.sprites[0].visible = true;
   }
   
   /*  

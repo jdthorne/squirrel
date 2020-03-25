@@ -29,7 +29,7 @@ class Animation {
     this.sprites.forEach((s) => { s.visible = false });
   }
   
-  setup(group, options) {
+  setup(group) {
     this.sprites = this.assets.map((asset) => {
       let sprite = new PIXI.Sprite(
         PIXI.loader.resources[asset].texture
@@ -48,9 +48,7 @@ class Animation {
       return sprite;
     });
     
-    if (!options || options.visible != false) {
-      this.sprites[0].visible = true;
-    }
+    this.sprites[0].visible = true;
   }
   
   animate(progress) {
