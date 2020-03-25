@@ -1,4 +1,6 @@
 
+import Vector from '../../util/vector.js';
+
 import Movement from './movement.js';
 
 
@@ -15,6 +17,8 @@ class Patrol extends Movement {
   }
   
   tick() {
+    let startPosition = this.character.position;
+    
     this.distance += this.speed * this.direction;
     
     if (this.distance < 0) {
@@ -28,19 +32,7 @@ class Patrol extends Movement {
     
     this.character.position = this.path.pointAtLength(this.distance);
     
-    let dx = this.character.position.x - this.character.group.x;
-    if (dx < 0) {
-      this.character.group.scale.x = -1;
-    } else {
-      this.character.group.scale.x = 1;
-    }
-    
-    if (this.character.animation) {
-      this.character.animation.animate(this.distance * 0.15);
-    }
-    
-    this.character.group.x = this.character.position.x;
-    this.character.group.y = this.character.position.y;
+    this.aim(this.character.position.minus(startPosition));
   }
 }
 

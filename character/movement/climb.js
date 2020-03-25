@@ -5,8 +5,9 @@ import Movement from './movement.js';
 
 
 const WALK_SPEED = 6;
+const JUMP_SPEED = -4;
+
 const GRAB_DISTANCE = 10;
-const ANGLE_SNAP = Math.PI / 16;
 
 
 class Climb extends Movement {
@@ -18,8 +19,18 @@ class Climb extends Movement {
   
   control(input) {
     let startPosition = new Vector(this.character.position);
+    
+    // jump?
+    if (input.jump) {
+      this.character.velocity.x = (input.stick.x * WALK_SPEED);
+      this.character.velocity.y = (input.stick.y * WALK_SPEED) + JUMP_SPEED;
+
+      this.character.movements.fly.activate();
       
-    // push
+      return;
+    }
+      
+    // move
     if (input.stick.length() < 0.2) {
       this.character.velocity.x = 0;
       this.character.velocity.y = 0;
@@ -49,15 +60,16 @@ class Climb extends Movement {
       if (availableSpeed < 1) { break; }
     }
 
-    // select animation
+    // animate
     let movement = this.character.position.minus(startPosition);
     
     if (movement.length() > WALK_SPEED/4) { 
       this.character.animations.run.activate();
       this.character.animations.run.animate(movement.length() * 0.006);
       
-      this.aim(movement, ANGLE_SNAP);
+      this.aim(movement);
     } else {
+      this.character.animations.run.reset();
       this.character.animations.stand.activate();
       this.aim();
     }

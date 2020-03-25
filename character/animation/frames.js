@@ -15,9 +15,11 @@ class Frames extends Animation {
     
     this.sprites.forEach((sprite, index) => {
       sprite.visible = (index == currentFrame);
-      
-      Debug.log("frames." + index, sprite.visible);
     });
+  }
+  
+  reset() {
+    this.progress = 0;
   }
 }
 

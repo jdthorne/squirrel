@@ -1,4 +1,8 @@
+
 import Vector from '../../util/vector.js';
+
+// const ANGLE_SNAP = Math.PI / 16;
+// const ANGLE_SNAP = Math.PI / 128;
 
 
 class Movement {
@@ -13,7 +17,7 @@ class Movement {
   tick() {
   }
 
-  aim(direction, angle_snap) {
+  aim(direction) {
     if (!direction) {
       this.character.scale.x = 1;
       this.character.rotation = 0;
@@ -28,9 +32,7 @@ class Movement {
       this.character.scale.x = 1;
     }
     
-    this.character.rotation = Math.round(
-      Math.atan2(direction.y, direction.x) / angle_snap
-    ) * angle_snap;
+    this.character.rotation = Math.atan2(direction.y, direction.x);
     
     if (this.character.scale.x < 0) { 
       this.character.rotation += Math.PI;

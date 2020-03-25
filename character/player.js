@@ -26,7 +26,7 @@ class Player extends Character {
     
     this.movements = {
       climb: new Climb(this, world.navigation),
-      fly:   new Fly(this)
+      fly:   new Fly(this, world.navigation)
     }
     
     this.animations = {
