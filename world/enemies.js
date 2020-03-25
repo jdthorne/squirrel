@@ -1,10 +1,12 @@
 
 import Layer from './layer.js'
 import SnailSlug from '../character/snail-slug.js'
+import Pigeon from '../character/pigeon.js'
 
 
 const ENEMY_CLASSES = {
-  SnailSlug: SnailSlug
+  SnailSlug: SnailSlug,
+  Pigeon: Pigeon
 };
 
 
@@ -28,12 +30,12 @@ class Enemies extends Layer {
   }
   
   load(dom) {
+    this.paths = [];
     super.load(dom);
     
     this.paths.forEach((path) => {
       path.splitDownTo(25);
     });
-
 
     let id = dom.getAttribute("id");
     let type = id.substr(2);

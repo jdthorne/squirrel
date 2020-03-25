@@ -1,8 +1,9 @@
 
 class Animation {
-  constructor(character, assets) {
+  constructor(character, assets, options) {
     this.character = character;
     this.assets = assets;
+    this.options = options || {};
   }
   
   activate() {
@@ -35,8 +36,10 @@ class Animation {
         PIXI.loader.resources[asset].texture
       )
       
-      sprite.scale.x = 0.075;
-      sprite.scale.y = 0.075;
+      let scale = this.options.scale || 1.0;
+      
+      sprite.scale.x = 0.075 * scale;
+      sprite.scale.y = 0.075 * scale;
       
       sprite.anchor.x = 0.5;
       sprite.anchor.y = 0.675;

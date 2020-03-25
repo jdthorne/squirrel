@@ -2,8 +2,8 @@
 import Animation from './animation.js';
 
 class Squish extends Animation {
-  constructor(character, sprite) {
-    super(character, [sprite]);
+  constructor(character, sprite, options) {
+    super(character, [sprite], options);
   }
   
   animate(progress) {

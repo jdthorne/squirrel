@@ -19,7 +19,9 @@ PIXI.loader.add([
   "assets/squirrel-standing.svg",
   "assets/squirrel-running0.svg",
   "assets/squirrel-running1.svg",
-  "assets/snail-slug.svg"
+  "assets/snail-slug.svg",
+  "assets/pigeon-flying0.svg",
+  "assets/pigeon-flying1.svg",
 ]).load(() => {  
   let world = new World();
   world.load(() => {
@@ -31,8 +33,10 @@ PIXI.loader.add([
     
     window.player = player;
 
-    player.position.x = world.navigation.paths[0].links[0].start.x;
-    player.position.y = world.navigation.paths[0].links[0].start.y + 100;
+    // player.position.x = world.navigation.paths[0].links[0].start.x;
+    // player.position.y = world.navigation.paths[0].links[0].start.y + 100;
+    player.position.x = 460
+    player.position.y = 1350;
     player.show(app);
   
     function render() {

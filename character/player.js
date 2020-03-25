@@ -53,7 +53,7 @@ class Player extends Character {
     
     Debug.log("player.position", this.position);
     if (this.position.y > 2500) { 
-      this.position = new Vector(460, 600); 
+      this.position = new Vector(460, 1350); 
       this.velocity = new Vector(0, 0); 
     }
   }

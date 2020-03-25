@@ -1,10 +1,10 @@
 
 class Vector {
-  constructor(x = {}, y = null) {
-    if (y) {
+  constructor(x = {}, y = undefined) {
+    if (y !== undefined) {
       this.x = x;
       this.y = y;
-    } else if (x && x.x) {
+    } else if (x.x !== undefined) {
       this.x = x.x;
       this.y = x.y;
     } else {
