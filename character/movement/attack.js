@@ -3,20 +3,22 @@ import Soar from './soar.js';
 
 class Attack extends Soar {
   control(input) {
-    this.stopAttacking(input);
+    this.checkAttacking(input);
     
     super.control(input);
   }
   
-  stopAttacking(input) {
-    if (!input.jump) {
-      this.character.movements.soar.activate();
-      return;
-    }
+  checkAttacking(input) {
+    this.attacking = input.jump;
   }  
 
   animate() {
-    this.character.animations.attack.activate();
+    if (this.attacking) {
+      this.character.animations.attack.activate();
+    } else {
+      this.character.animations.attackRelax.activate();
+    }
+    
     this.aim(this.character.velocity);
   }
 }

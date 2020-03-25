@@ -8,7 +8,11 @@ const DAMAGE_RANGE = 75.0;
 class LeapCombat extends Combat {
   vulnerable() {
     return this.character.movement == this.character.movements.climb ||
-           this.character.movement == this.character.movements.soar;
+           this.character.movement == this.character.movements.soar ||
+           (
+             this.character.movement == this.character.movements.attack &&
+             !this.character.movement.attacking
+           );
   }
   
   enemies() {
