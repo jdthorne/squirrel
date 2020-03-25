@@ -65,7 +65,7 @@ class Climb extends Movement {
     
     if (movement.length() > WALK_SPEED/4) { 
       this.character.animations.run.activate();
-      this.character.animations.run.animate(movement.length() * 0.006);
+      this.character.animations.run.animate(movement.length() * 0.0075);
       
       this.aim(movement);
     } else {

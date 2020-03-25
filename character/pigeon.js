@@ -27,6 +27,7 @@ class Pigeon extends Character {
     this.movements = {
       patrol: new Patrol(this, path, SPEED, { level: true }),
       escape: new Fly(this, SPEED * 3),
+      attack: new Fly(this, SPEED),
       cruise: new Fly(this, SPEED),
     };
     
@@ -38,22 +39,34 @@ class Pigeon extends Character {
   tick() {
     super.tick();
     
-    // run away?
+    if (this.combat.dead) { return; }
+    
     let enemy = this.combat.closestEnemy;
     if (!enemy) { return; }
-    if (enemy.combat.vulnerable()) { return; }
+    if (this.combat.closestEnemyDistance > ESCAPE_DISTANCE) { return; }
     
-    if (this.combat.closestEnemyDistance < ESCAPE_DISTANCE) {
-      let runAway = this.position.minus(enemy.position).normalized().multipliedBy(ESCAPE_DISTANCE * 2);
-      let runAwayTarget = this.position.plus(runAway);
-      
-      this.movements.escape.activate(
-        runAwayTarget, 
-        () => {
-          this.returnToPatrol(); 
-        }
-      );
+    if (enemy.combat.vulnerable()) {
+      this.attack(enemy);
+    } else {
+      this.runAwayFrom(enemy);
     }
+  }
+  
+  attack(enemy) {
+    this.movements.attack.activate(
+      enemy.position,
+      () => { this.returnToPatrol(); }
+    )
+  }
+  
+  runAwayFrom(enemy) {
+    let runAway = this.position.minus(enemy.position).normalized().multipliedBy(ESCAPE_DISTANCE * 2);
+    let runAwayTarget = this.position.plus(runAway);
+    
+    this.movements.escape.activate(
+      runAwayTarget, 
+      () => { this.returnToPatrol(); }
+    );
   }
   
   returnToPatrol() {
