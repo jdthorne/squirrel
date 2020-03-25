@@ -26,7 +26,7 @@ class Pigeon extends Character {
 
     this.movements = {
       patrol: new Patrol(this, path, SPEED, { level: true }),
-      escape: new Fly(this, SPEED * 4),
+      escape: new Fly(this, SPEED * 3),
       cruise: new Fly(this, SPEED),
     };
     
@@ -49,7 +49,7 @@ class Pigeon extends Character {
       
       this.movements.escape.activate(
         runAwayTarget, 
-        () => { 
+        () => {
           this.returnToPatrol(); 
         }
       );

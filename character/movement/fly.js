@@ -28,7 +28,7 @@ class Fly extends Movement {
     this.character.position.y += this.direction.y * this.speed;
 
     this.distance -= this.speed;
-    if (this.distance < 0) {
+    if (this.distance < 0 && !this.character.combat.dead) {
       this.onArrival();
     }
         

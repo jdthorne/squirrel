@@ -19,9 +19,12 @@ PIXI.loader.add([
   "assets/squirrel-standing.svg",
   "assets/squirrel-running0.svg",
   "assets/squirrel-running1.svg",
+  "assets/squirrel-attacking.svg",
   "assets/snail-slug.svg",
   "assets/pigeon-flying0.svg",
   "assets/pigeon-flying1.svg",
+  "assets/slash.svg",
+  "assets/nom.svg"
 ]).load(() => {  
   let world = new World();
   world.load(() => {

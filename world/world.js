@@ -3,6 +3,7 @@ import Debug from '../util/debug.js'
 import Navigation from './navigation.js'
 import Enemies from './enemies.js'
 import Layer from './layer.js'
+import Effects from './effects.js'
 
 class World {
   constructor() {
@@ -10,6 +11,7 @@ class World {
     this.foreground = new Layer();
     this.background = new Layer();
     this.enemies = new Enemies();    
+    this.effects = new Effects();
   }
 
   show(app) {
@@ -19,12 +21,14 @@ class World {
     this.foreground.show(app);
     
     this.enemies.show(app);
+    this.effects.show(app);
     
     // this.navigation.show(app);
   }
   
   tick() {
     this.enemies.tick();
+    this.effects.tick();
   }
   
   load(done) {

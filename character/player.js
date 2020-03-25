@@ -25,13 +25,13 @@ class Player extends Character {
     }
     
     this.animations = {
-      stand:  new Frames(this, ["assets/squirrel-standing.svg"]),
-      attack: new Frames(this, ["assets/squirrel-running0.svg"]),
-      soar:   new Frames(this, ["assets/squirrel-running1.svg"]),
+      stand:  new Frames(this, ["assets/squirrel-standing.svg"], { scale: 1.2 }),
+      attack: new Frames(this, ["assets/squirrel-attacking.svg"], { scale: 1.2 }),
+      soar:   new Frames(this, ["assets/squirrel-running1.svg"], { scale: 1.2 }),
       run:    new Frames(this, [
         "assets/squirrel-running0.svg",
         "assets/squirrel-running1.svg",
-      ]),
+      ], { scale: 1.2 }),
     }
     
     this.movements.climb.activate();

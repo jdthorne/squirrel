@@ -1,7 +1,8 @@
+
 import Combat from './combat.js';
 
-const TRIGGER_RANGE = 25.0;
-const DAMAGE_RANGE = 50.0;
+const TRIGGER_RANGE = 50.0;
+const DAMAGE_RANGE = 75.0;
 
 
 class LeapCombat extends Combat {
@@ -29,14 +30,17 @@ class LeapCombat extends Combat {
   }
   
   attack() {
+    let world = this.character.world;
+  
     this.enemies().forEach((enemy) => {
       let distance = enemy.position.minus(this.character.position).length();
       
       if (distance < DAMAGE_RANGE) {
+        world.effects.add("assets/slash.svg", enemy.position);
         enemy.combat.hit();
       }
     });
-    
+
     this.character.movements.soar.activate();
   }
 }

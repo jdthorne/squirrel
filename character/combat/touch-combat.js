@@ -23,6 +23,7 @@ class TouchCombat extends Combat {
       }
       
       if (enemy.combat.vulnerable() && distance < this.range) {
+        enemy.world.effects.add("assets/nom.svg", enemy.position);
         enemy.combat.hit();
       }
     });
