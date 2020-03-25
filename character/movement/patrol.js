@@ -3,7 +3,7 @@ import Vector from '../../util/vector.js';
 
 import Movement from './movement.js';
 
-const DAMAGE_RANGE = 25.0;
+const DAMAGE_RANGE = 45.0;
 
 
 class Patrol extends Movement {

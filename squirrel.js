@@ -32,7 +32,7 @@ PIXI.loader.add([
     window.player = player;
 
     player.position.x = world.navigation.paths[0].links[0].start.x;
-    player.position.y = world.navigation.paths[0].links[0].start.y;
+    player.position.y = world.navigation.paths[0].links[0].start.y + 100;
     player.show(app);
   
     function render() {
@@ -48,5 +48,13 @@ PIXI.loader.add([
     render();
     
     Debug.log("startup complete");
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  let welcome = document.getElementById("welcome");
+  
+  welcome.addEventListener("click", () => {
+    welcome.style.display = 'none';
   });
 });

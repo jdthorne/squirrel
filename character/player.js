@@ -49,9 +49,10 @@ class Player extends Character {
     this.movement.control(this.input);
     
     Debug.log("player.position", this.position);
-    if (this.position.x < 0) { this.position.x = 0; }
-    if (this.position.x > 2050) { this.position.x = 2050; }
-    if (this.position.y > 1500) { this.position.y = 1500; }
+    if (this.position.y > 2500) { 
+      this.position = new Vector(460, 600); 
+      this.velocity = new Vector(0, 0); 
+    }
   }
   
   hit() {

@@ -9,6 +9,11 @@
     	margin: 0;
     }
     
+    html, body {
+      width: 100%;
+      height: 100%;
+    }
+    
     #debug {
       font-family: monospace;
       position: absolute;
@@ -21,11 +26,52 @@
       z-index: 200;
       text-shadow: -1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black, 1px -1px 0 black;
     }
+    
+    #welcome {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      
+      background: black;
+      
+      z-index: 500;
+    }
+    
+    #welcome div {
+      position: absolute;
+
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    
+    #welcome .movement {
+      bottom: 10%; left: 10%; width: 30%; height: 30%;
+      background-image: url(assets/introduction-movement.svg);
+      background-position: left center;
+    }
+
+    #welcome .jump {
+      bottom: 10%; right: 10%; width: 30%; height: 30%;
+      background-image: url(assets/introduction-jump.svg);
+      background-position: right center;
+    }
+
+    #welcome .instructions {
+      top: 10%; left: 10%; right: 10%; bottom: 50%;
+      background-image: url(assets/introduction-instructions.svg);
+      background-position: center top;
+    }
   </style>
   <script src="pixi.min.js"></script>
   <script src="squirrel.js" type="module"></script>
 </head>
 <body>
   <div id="debug">loading...</div>
+  
+  <div id="welcome">
+    <div class="instructions"> </div>
+    <div class="movement"> </div>
+    <div class="jump"> </div>
+  </div>
 </body>
 </html>

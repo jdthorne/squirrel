@@ -34,7 +34,6 @@ class Attack extends Fly {
       
       if (distance < DAMAGE_RANGE) {
         enemy.die();
-        Debug.log("hit enemy!");
       }
     });
     
