@@ -57,4 +57,8 @@ document.addEventListener("DOMContentLoaded", () => {
   welcome.addEventListener("click", () => {
     welcome.style.display = 'none';
   });
+
+  welcome.addEventListener("touchstart", () => {
+    welcome.style.display = 'none';
+  });
 });
