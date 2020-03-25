@@ -1,7 +1,7 @@
-import Fly from './fly.js';
+import Soar from './soar.js';
 
 
-class Attack extends Fly {
+class Attack extends Soar {
   control(input) {
     this.stopAttacking(input);
     
@@ -10,7 +10,7 @@ class Attack extends Fly {
   
   stopAttacking(input) {
     if (!input.jump) {
-      this.character.movements.fly.activate();
+      this.character.movements.soar.activate();
       return;
     }
   }  

@@ -2,7 +2,7 @@
 import Character from './character.js';
 
 import Climb from './movement/climb.js';
-import Fly from './movement/fly.js';
+import Soar from './movement/soar.js';
 import Attack from './movement/attack.js';
 import Fall from './movement/fall.js';
 import LeapCombat from './combat/leap-combat.js';
@@ -20,14 +20,14 @@ class Player extends Character {
     this.movements = {
       climb:  new Climb(this, world.navigation),
       attack: new Attack(this, world.navigation),
-      fly:    new Fly(this, world.navigation),
+      soar:   new Soar(this, world.navigation),
       fall:   new Fall(this, world.navigation)
     }
     
     this.animations = {
       stand:  new Frames(this, ["assets/squirrel-standing.svg"]),
       attack: new Frames(this, ["assets/squirrel-running0.svg"]),
-      fly:    new Frames(this, ["assets/squirrel-running1.svg"]),
+      soar:   new Frames(this, ["assets/squirrel-running1.svg"]),
       run:    new Frames(this, [
         "assets/squirrel-running0.svg",
         "assets/squirrel-running1.svg",

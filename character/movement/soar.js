@@ -1,12 +1,12 @@
 import Movement from './movement.js';
 
-const FLY_SPEED = 0.2;
+const SPEED = 0.2;
 
 const GRAB_DISTANCE = 10;
 const GRAVITY = -0.5;
 
 
-class Fly extends Movement {
+class Soar extends Movement {
   constructor(character, navigation) {
     super(character);
     
@@ -29,8 +29,8 @@ class Fly extends Movement {
     }
 
     // push
-    this.character.velocity.x += input.stick.x * FLY_SPEED;
-    this.character.velocity.y += input.stick.y * FLY_SPEED;
+    this.character.velocity.x += input.stick.x * SPEED;
+    this.character.velocity.y += input.stick.y * SPEED;
     
     // fall
     this.character.velocity.y -= GRAVITY;
@@ -44,9 +44,9 @@ class Fly extends Movement {
   }
   
   animate() {
-    this.character.animations.fly.activate();
+    this.character.animations.soar.activate();
     this.aim(this.character.velocity);
   }
 }
 
-export default Fly;
+export default Soar;
