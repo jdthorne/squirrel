@@ -18,10 +18,10 @@ class Player extends Character {
     super();
     
     this.movements = {
-      climb:  new Climb(this, world.navigation),
-      attack: new Attack(this, world.navigation),
-      soar:   new Soar(this, world.navigation),
-      fall:   new Fall(this, world.navigation)
+      climb:  new Climb(this,  world.navigation, world.ground),
+      attack: new Attack(this, world.navigation, world.ground),
+      soar:   new Soar(this,   world.navigation, world.ground),
+      fall:   new Fall(this,   world.ground)
     }
     
     this.animations = {
@@ -57,7 +57,8 @@ class Player extends Character {
     
     Debug.log("player.position", this.position);
     if (this.position.y > 2500) { 
-      this.position = new Vector(460, 1350); 
+      this.position.x = 675
+      this.position.y = 1435;
       this.velocity = new Vector(0, 0); 
     }
   }

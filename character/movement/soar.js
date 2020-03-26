@@ -7,10 +7,13 @@ const GRAVITY = -0.5;
 
 
 class Soar extends Movement {
-  constructor(character, navigation) {
+  constructor(character, navigation, ground) {
     super(character);
     
     this.navigation = navigation;
+    this.ground = ground;
+    
+    Debug.log("soar.got-ground? " + !!ground);
   }
   
   control(input) {
@@ -26,6 +29,14 @@ class Soar extends Movement {
         this.character.movements.climb.activate();
         return;
       }
+    }
+    
+    // hit ground?
+    let [hit, position] = this.ground.enforce(this.character.position);
+    if (hit) {
+      this.character.position = position;
+      this.character.movements.climb.activate();
+      return;
     }
 
     // push

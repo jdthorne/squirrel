@@ -4,12 +4,15 @@ import Navigation from './navigation.js'
 import Enemies from './enemies.js'
 import Layer from './layer.js'
 import Effects from './effects.js'
+import Ground from './ground.js'
+
 
 class World {
   constructor() {
     this.navigation = new Navigation();
     this.foreground = new Layer();
     this.background = new Layer();
+    this.ground = new Ground();
     this.enemies = new Enemies();    
     this.effects = new Effects();
   }
@@ -32,7 +35,7 @@ class World {
   }
   
   load(done) {
-    fetch("demo-3.svg")
+    fetch("assets/demo-3-v2.svg")
       .then(response => response.text())
       .then(response => {
         let dom = new DOMParser().parseFromString(response, 'image/svg+xml');
@@ -49,7 +52,8 @@ class World {
             A: this.foreground,
             B: this.background,
             N: this.navigation,
-            E: this.enemies
+            E: this.enemies,
+            G: this.ground,
           }[id[0]];
           
           if (loadInto) { loadInto.load(group); }

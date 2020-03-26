@@ -41,8 +41,8 @@ PIXI.loader.add([
 
     // player.position.x = world.navigation.paths[0].links[0].start.x;
     // player.position.y = world.navigation.paths[0].links[0].start.y + 100;
-    player.position.x = 460
-    player.position.y = 1350;
+    player.position.x = 675
+    player.position.y = 1435;
     player.show(app);
   
     function render() {

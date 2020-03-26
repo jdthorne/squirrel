@@ -5,8 +5,10 @@ const COOLDOWN = 40;
 
 
 class Fall extends Movement {
-  constructor(character) {
+  constructor(character, ground) {
     super(character);    
+    
+    this.ground = ground;
   }
   
   activate() {
@@ -28,6 +30,14 @@ class Fall extends Movement {
     // move
     this.character.position.x += this.character.velocity.x;
     this.character.position.y += this.character.velocity.y;
+
+    // hit ground?
+    if (this.ground) {
+      let [hit, position] = this.ground.enforce(this.character.position);
+      if (hit) {
+        this.character.position = position;
+      }
+    }
    
     // animate 
     this.character.scale.y = -1;

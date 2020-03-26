@@ -15,13 +15,20 @@ class Climb extends Movement {
     super(character);
 
     this.navigation = navigation;
+    this.cooldown = 0;
+  }
+  
+  activate() {
+    super.activate();
+    this.cooldown = 10;
   }
   
   control(input) {
     let startPosition = new Vector(this.character.position);
+    this.cooldown -= 1;
     
     // jump?
-    if (input.jump) {
+    if (input.jump && this.cooldown < 0) {
       this.character.velocity.x = (input.stick.x * WALK_SPEED);
       this.character.velocity.y = (input.stick.y * WALK_SPEED) + JUMP_SPEED;
 

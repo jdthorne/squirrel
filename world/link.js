@@ -1,4 +1,6 @@
+
 import Vector from '../util/vector.js'
+import AABB from '../util/aabb.js'
 
 
 class Link {
@@ -16,6 +18,7 @@ class Link {
     this.direction.normalize();
     
     this.length = this.startToEnd.length();
+    this.aabb = new AABB(points);
   }
   
   pointAtLength(length) {
