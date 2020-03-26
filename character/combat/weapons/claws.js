@@ -2,15 +2,15 @@
 import Melee from './melee.js'
 
 
-class Sword extends Melee {
+class Claws extends Melee {
   constructor(character, animations) {
     super(character, {
       animations: animations,
       
-      minimumCharge: 20.0,
-      damage: 150
+      minimumCharge: 0.0,
+      damage: 26
     });
   }
 }
 
-export default Sword;
+export default Claws;

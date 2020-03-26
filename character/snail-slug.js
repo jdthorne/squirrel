@@ -15,7 +15,7 @@ class SnailSlug extends Character {
     
     this.animation = new Squish(this, "assets/snail-slug.svg");
     this.movement = new Patrol(this, path, SPEED, this.animation);
-    this.combat = new TouchCombat(this, COMBAT_RANGE);
+    this.combat = new TouchCombat(this, { health: 100, range: COMBAT_RANGE });
   }  
 }
 

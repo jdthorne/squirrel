@@ -25,7 +25,11 @@ class Character {
     } else if (this.animation) {
       this.animation.setup(group);
     }
-  }
+    
+    if (this.combat) {
+      this.combat.show(group);
+    }
+  } 
   
   tick() {
     if (this.movement) { this.movement.tick(); }

@@ -7,6 +7,7 @@ import Fall from './movement/fall.js';
 
 import LeapCombat from './combat/leap-combat.js';
 import Sword from './combat/weapons/sword.js';
+import Claws from './combat/weapons/claws.js';
 
 import Frames from './animation/frames.js';
 
@@ -43,7 +44,9 @@ class Player extends Character {
       ], { scale: 1.2 }),
 
       // attacking animations are specific to each weapon
-      sword:      new Frames(this, ["assets/squirrel-attacking.svg"], { scale: 1.2 }),
+      swordCharge:      new Frames(this, ["assets/squirrel-sword-charging.svg"], { scale: 1.2 }),
+      swordAttack:      new Frames(this, ["assets/squirrel-sword-attacking.svg"], { scale: 1.2 }),
+      clawsAttack:      new Frames(this, ["assets/squirrel-claws-attacking.svg"], { scale: 1.2 }),
       // attack:      new Frames(this, ["assets/squirrel-attacking.svg"], { scale: 1.2 }),
       // attackRelax: new Frames(this, ["assets/squirrel-running1.svg"], { scale: 1.2 }),
     }    
@@ -52,10 +55,12 @@ class Player extends Character {
     this.combat = new LeapCombat(this, {
       weapons: {
         sword: new Sword(this, {
-          charging: this.animations.soar,
-          firing:   this.animations.sword
+          charging:  this.animations.swordCharge,
+          attacking: this.animations.swordAttack
         }),
-        // claws: new Claws(this)
+        claws: new Claws(this, {
+          attacking: this.animations.clawsAttack
+        })
       }
     });
     
@@ -124,7 +129,7 @@ class Player extends Character {
     } 
     
     if (this.combat.armed && input.jump) {
-      this.combat.attack(this.combat.weapons.sword);
+      this.combat.attack(this.combat.weapons.claws);
     } else {
       this.combat.hold();
       this.animations.soar.activate();

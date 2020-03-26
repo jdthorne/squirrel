@@ -2,10 +2,10 @@ import Combat from './combat.js';
 
 
 class TouchCombat extends Combat {
-  constructor(character, range) {
-    super(character);
+  constructor(character, options) {
+    super(character, options);
     
-    this.range = range;
+    this.range = options.range;
   }
 
   tick() {
@@ -25,7 +25,7 @@ class TouchCombat extends Combat {
       
       if (enemy.combat.vulnerable() && enemy.combat.iframes <= 0 && distance < this.range) {
         enemy.world.effects.add("assets/nom.svg", enemy.position);
-        enemy.combat.hit();
+        enemy.combat.hit(40);
       }
     });
   }

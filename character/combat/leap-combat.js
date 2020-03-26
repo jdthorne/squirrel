@@ -4,6 +4,8 @@ import Combat from './combat.js';
 const TRIGGER_RANGE = 50.0;
 const DAMAGE_RANGE = 75.0;
 
+const INVUNERABILITY_PERIOD = 40.0;
+
 
 class LeapCombat extends Combat {
   constructor(character, options) {
@@ -74,7 +76,8 @@ class LeapCombat extends Combat {
       
       if (distance < DAMAGE_RANGE) {
         world.effects.add("assets/slash.svg", enemy.position);
-        enemy.combat.hit();
+        enemy.combat.hit(this.weapon.damage);
+        this.iframes = INVUNERABILITY_PERIOD;
       }
     });
     
