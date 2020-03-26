@@ -18,7 +18,7 @@ class Combat {
     if (this.iframes > 0) { return; }
     
     this.iframes = INVUNERABILITY_PERIOD;
-    this.health -= 100;
+    this.health -= 40;
     
     if (this.health < 0) {
       this.die();

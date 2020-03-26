@@ -4,7 +4,9 @@ import Character from './character.js';
 import Climb from './movement/climb.js';
 import Soar from './movement/soar.js';
 import Fall from './movement/fall.js';
+
 import LeapCombat from './combat/leap-combat.js';
+import Sword from './combat/weapons/sword.js';
 
 import Frames from './animation/frames.js';
 
@@ -26,12 +28,12 @@ class Player extends Character {
       soar:   new Soar(this,   world.navigation, world.ground),
       fall:   new Fall(this,   world.ground)
     }
+    this.movements.climb.activate();
     
     this.animations = {
       stand:       new Frames(this, ["assets/squirrel-standing.svg"], { scale: 1.2 }),
-      attack:      new Frames(this, ["assets/squirrel-attacking.svg"], { scale: 1.2 }),
-      attackRelax: new Frames(this, ["assets/squirrel-running1.svg"], { scale: 1.2 }),
-      soar:        new Frames(this, ["assets/squirrel-running2.svg"], { scale: 1.2 }),
+      soar:        new Frames(this, ["assets/squirrel-running1.svg"], { scale: 1.2 }),
+      fall:        new Frames(this, ["assets/squirrel-running2.svg"], { scale: 1.2 }),
       run:         new Frames(this, [
         "assets/squirrel-running0.svg",
         "assets/squirrel-running1.svg",
@@ -39,12 +41,23 @@ class Player extends Character {
         "assets/squirrel-running3.svg",
         "assets/squirrel-running4.svg",
       ], { scale: 1.2 }),
-    }
-    
-    this.movements.climb.activate();
+
+      // attacking animations are specific to each weapon
+      sword:      new Frames(this, ["assets/squirrel-attacking.svg"], { scale: 1.2 }),
+      // attack:      new Frames(this, ["assets/squirrel-attacking.svg"], { scale: 1.2 }),
+      // attackRelax: new Frames(this, ["assets/squirrel-running1.svg"], { scale: 1.2 }),
+    }    
     this.animations.stand.activate();
     
-    this.combat = new LeapCombat(this);
+    this.combat = new LeapCombat(this, {
+      weapons: {
+        sword: new Sword(this, {
+          charging: this.animations.soar,
+          firing:   this.animations.sword
+        }),
+        // claws: new Claws(this)
+      }
+    });
     
     this.app = app;
     this.input = input;
@@ -62,6 +75,7 @@ class Player extends Character {
     
     this.jump(this.input);
     this.grab(this.input);
+    this.attack(this.input);
     this.recover();
     
     Debug.log("player.position", this.position);
@@ -85,6 +99,7 @@ class Player extends Character {
     this.velocity.y = (input.stick.y * WALK_SPEED) + JUMP_SPEED;
 
     this.movements.soar.activate();
+    this.combat.arm();
   }
   
   grab(input) {
@@ -99,6 +114,21 @@ class Player extends Character {
     if (grabbed) {
       this.position = position;
       this.movements.climb.activate();
+    }
+  }
+  
+  attack(input) {
+    if (this.movement != this.movements.soar) { 
+      this.combat.disarm();
+      return; 
+    } 
+    
+    if (this.combat.armed && input.jump) {
+      this.combat.attack(this.combat.weapons.sword);
+    } else {
+      this.combat.hold();
+      this.animations.soar.activate();
+      return;
     }
   }
   

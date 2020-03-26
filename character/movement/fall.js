@@ -17,6 +17,10 @@ class Fall extends Movement {
   
   activate() {
     super.activate();
+    
+    if (this.character.animations && this.character.animations.fall) {
+      this.character.animations.fall.activate();
+    }
   }
   
   deactivate() {
@@ -28,7 +32,7 @@ class Fall extends Movement {
   tick() {
     // fall
     this.character.velocity.y -= GRAVITY;
-        
+
     // move
     this.character.position.x += this.character.velocity.x;
     this.character.position.y += this.character.velocity.y;
@@ -38,6 +42,8 @@ class Fall extends Movement {
       let [hit, position] = this.ground.enforce(this.character.position);
       if (hit) {
         this.character.position = position;
+        this.character.velocity.x *= 0.95;
+        this.character.velocity.y = 0;
         this.character.rotation = 0;
       }
     }
