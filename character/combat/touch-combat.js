@@ -1,4 +1,6 @@
+
 import Combat from './combat.js';
+import Effect from '../../objects/effect.js';
 
 
 class TouchCombat extends Combat {
@@ -24,7 +26,11 @@ class TouchCombat extends Combat {
       }
       
       if (enemy.combat.vulnerable() && enemy.combat.iframes <= 0 && distance < this.range) {
-        enemy.world.effects.add("assets/nom.svg", enemy.position);
+        enemy.world.objects.add(new Effect({
+          asset: "assets/nom.svg",
+          position: enemy.position
+        }));
+
         enemy.combat.hit(40);
       }
     });

@@ -8,6 +8,7 @@ import Fall from './movement/fall.js';
 import LeapCombat from './combat/leap-combat.js';
 import Sword from './combat/weapons/sword.js';
 import Claws from './combat/weapons/claws.js';
+import Pinecone from './combat/weapons/pinecone.js';
 
 import Frames from './animation/frames.js';
 
@@ -47,7 +48,8 @@ class Player extends Character {
       swordCharge:      new Frames(this, ["assets/squirrel-sword-charging.svg"], { scale: 1.2 }),
       swordAttack:      new Frames(this, ["assets/squirrel-sword-attacking.svg"], { scale: 1.2 }),
       clawsAttack:      new Frames(this, ["assets/squirrel-claws-attacking.svg"], { scale: 1.2 }),
-    }    
+      pineconeCharge:   new Frames(this, ["assets/squirrel-pinecone-charging.svg"], { scale: 1.2 }),
+    }
     this.animations.stand.activate();
     
     this.combat = new LeapCombat(this, {
@@ -58,7 +60,10 @@ class Player extends Character {
         }),
         claws: new Claws(this, {
           attacking: this.animations.clawsAttack
-        })
+        }),
+        pinecone: new Pinecone(this, {
+          charging: this.animations.pineconeCharge
+        }),
       }
     });
     
@@ -128,7 +133,8 @@ class Player extends Character {
     
     if (this.combat.armed && input.jump) {
       let weapon = this.combat.weapons.claws;
-      if (input.light) { weapon = this.combat.weapons.sword; }
+      if (input.light) { weapon = this.combat.weapons.sword;    }
+      if (input.heavy) { weapon = this.combat.weapons.pinecone; }
   
       this.combat.attack(weapon);
     } else {

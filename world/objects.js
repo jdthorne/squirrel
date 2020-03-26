@@ -1,0 +1,25 @@
+
+class Objects {
+  show(app) {
+    let group = new PIXI.Container();
+    this.group = group;
+    app.stage.addChild(group);
+    
+    this.objects = [];
+  }
+
+  add(object) {
+    object.show(this, this.group);
+    this.objects.push(object);
+  }
+  
+  remove(object) {
+    this.objects = this.objects.filter((o) => o != object);
+  }  
+  
+  tick() {
+    this.objects.forEach((o) => { o.tick(); });
+  }
+}
+
+export default Objects;
