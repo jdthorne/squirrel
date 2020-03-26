@@ -40,7 +40,8 @@ class Object {
 
   
   tick() {
-  
+    this.sprite.position.x = this.position.x;
+    this.sprite.position.y = this.position.y;
   }
   
 /*

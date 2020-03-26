@@ -8,7 +8,7 @@ class Claws extends Melee {
       animations: animations,
       
       minimumCharge: 0.0,
-      damage: 26
+      damage: 40
     });
   }
 }

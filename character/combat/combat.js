@@ -14,6 +14,7 @@ class Combat {
     this.healthMax = options.health || 0;    
     this.health =    options.health || 0;
     this.iframes = 0;
+    this.aggrivation = 0;
   }
   
   show(group) {
@@ -74,6 +75,10 @@ class Combat {
     }
   }
   
+  aggro(amount) {
+    this.aggrivation += amount;
+  }
+  
   die() {
     this.dead = true;
     
@@ -105,13 +110,22 @@ class Combat {
   }
   
   tick() {
-    if (this.iframes > 0) { this.iframes -= 1; }
+    if (this.iframes     > 0) { this.iframes     -= 1; }
+    if (this.aggrivation > 0) { this.aggrivation -= 1; }
   }
   
   // TODO: Fix this?
   enemies() {
     if (window.player) { return [window.player]; }
     return [];
+  }
+  
+  enemiesWithin(distance, position) {
+    return this.enemies().filter((e) => {
+      let d = e.position.minus(position).length();
+      
+      return (d < distance);
+    });
   }
 }
 

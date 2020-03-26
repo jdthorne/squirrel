@@ -42,12 +42,7 @@ class Melee extends Weapon {
     let combat = this.character.combat;
   
     // find enemies
-    let triggers = combat.enemies().filter((e) => {
-      let distance = e.position.minus(this.character.position).length();
-      
-      return (distance < TRIGGER_RANGE);
-    });
-    
+    let triggers = combat.enemiesWithin(TRIGGER_RANGE, this.character.position);
     if (triggers.length == 0) { return; }
 
     let world = this.character.world;

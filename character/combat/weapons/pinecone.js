@@ -7,7 +7,8 @@ class Pinecone extends Ranged {
     super(character, {
       animations: animations,
       
-      minimumCharge: 40.0
+      minimumCharge: 40.0,
+      damage: 22.0
     });
   }
 }

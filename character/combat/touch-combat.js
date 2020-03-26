@@ -32,6 +32,7 @@ class TouchCombat extends Combat {
         }));
 
         enemy.combat.hit(40);
+        this.aggrivation = 0;
       }
     });
   }
