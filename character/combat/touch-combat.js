@@ -9,6 +9,7 @@ class TouchCombat extends Combat {
   }
 
   tick() {
+    super.tick();
     if (this.dead) { return; }
     
     this.closestEnemyDistance = Infinity;
@@ -22,7 +23,7 @@ class TouchCombat extends Combat {
         this.closestEnemy = enemy;
       }
       
-      if (enemy.combat.vulnerable() && distance < this.range) {
+      if (enemy.combat.vulnerable() && enemy.combat.iframes <= 0 && distance < this.range) {
         enemy.world.effects.add("assets/nom.svg", enemy.position);
         enemy.combat.hit();
       }

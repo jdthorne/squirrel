@@ -26,17 +26,7 @@ class Climb extends Movement {
   control(input) {
     let startPosition = new Vector(this.character.position);
     this.cooldown -= 1;
-    
-    // jump?
-    if (input.jump && this.cooldown < 0) {
-      this.character.velocity.x = (input.stick.x * WALK_SPEED);
-      this.character.velocity.y = (input.stick.y * WALK_SPEED) + JUMP_SPEED;
-
-      this.character.movements.attack.activate();
-      
-      return;
-    }
-      
+          
     // move
     if (input.stick.length() < 0.2) {
       this.character.velocity.x = 0;

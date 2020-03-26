@@ -9,10 +9,7 @@ class LeapCombat extends Combat {
   vulnerable() {
     return this.character.movement == this.character.movements.climb ||
            this.character.movement == this.character.movements.soar ||
-           (
-             this.character.movement == this.character.movements.attack &&
-             !this.character.movement.attacking
-           );
+           this.character.movement == this.character.movements.fall;
   }
   
   enemies() {
@@ -20,6 +17,8 @@ class LeapCombat extends Combat {
   }
   
   tick() {
+    super.tick();
+    
     if (this.character.movement != this.character.movements.attack) { return; }
     
     let triggers = this.enemies().filter((e) => {

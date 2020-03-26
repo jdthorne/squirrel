@@ -5,6 +5,11 @@ import Movement from './movement.js';
 
 
 class Fly extends Movement {
+
+  // Fly: move directly to a target
+  // 
+  // (todo: rename?)
+
   constructor(character, speed) {
     super(character);
     

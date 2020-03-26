@@ -2,11 +2,13 @@ import Movement from './movement.js';
 
 const SPEED = 0.2;
 
-const GRAB_DISTANCE = 10;
 const GRAVITY = -0.5;
 
 
 class Soar extends Movement {
+
+  // Soar: fly in a controlled ballistic arc
+
   constructor(character, navigation, ground) {
     super(character);
     
@@ -14,29 +16,17 @@ class Soar extends Movement {
     this.ground = ground;
   }
   
-  control(input) {
-    // grab?
-    if (!input.jump) {
-      let [grabbed, position] = this.navigation.snap(
-        this.character.position,
-        GRAB_DISTANCE
-      );
-      
-      if (grabbed) {
-        this.character.position = position;
-        this.character.movements.climb.activate();
-        return;
-      }
-    }
-    
-    // hit ground?
+  tick() {
+    // hit ground
     let [hit, position] = this.ground.enforce(this.character.position);
     if (hit) {
       this.character.position = position;
       this.character.movements.climb.activate();
       return;
     }
-
+  }
+  
+  control(input) {
     // push
     this.character.velocity.x += input.stick.x * SPEED;
     this.character.velocity.y += input.stick.y * SPEED;

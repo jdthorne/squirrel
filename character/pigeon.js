@@ -45,7 +45,7 @@ class Pigeon extends Character {
     if (!enemy) { return; }
     if (this.combat.closestEnemyDistance > ESCAPE_DISTANCE) { return; }
     
-    if (enemy.combat.vulnerable()) {
+    if (enemy.combat.vulnerable() && !enemy.combat.dead) {
       this.attack(enemy);
     } else {
       this.runAwayFrom(enemy);

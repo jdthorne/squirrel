@@ -1,10 +1,14 @@
+
 import Movement from './movement.js';
 
 const GRAVITY = -0.5;
-const COOLDOWN = 40;
 
 
 class Fall extends Movement {
+
+  // Fall: fall in an uncontrolled ballistic trajectory
+  // (todo: combine with soar?)
+
   constructor(character, ground) {
     super(character);    
     
@@ -13,8 +17,6 @@ class Fall extends Movement {
   
   activate() {
     super.activate();
-    
-    this.cooldown = COOLDOWN;
   }
   
   deactivate() {
@@ -36,20 +38,13 @@ class Fall extends Movement {
       let [hit, position] = this.ground.enforce(this.character.position);
       if (hit) {
         this.character.position = position;
+        this.character.rotation = 0;
       }
     }
    
     // animate 
     this.character.scale.y = -1;
-  }
-  
-  control(input) {
-    this.cooldown -= 1;
-    
-    if (this.cooldown < 0) {
-      this.character.movements.soar.activate();
-    }
-  }
+  }  
 }
 
 export default Fall;

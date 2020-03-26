@@ -15,11 +15,9 @@ class Movement {
     this.character.movement = this;
   }
   
-  deactivate() {
-  }
-  
-  tick() {
-  }
+  deactivate() { }
+  tick() { }
+  control(input) { }
 
   aim(direction, options = {}) {
     if (!direction) {

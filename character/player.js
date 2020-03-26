@@ -3,7 +3,6 @@ import Character from './character.js';
 
 import Climb from './movement/climb.js';
 import Soar from './movement/soar.js';
-import Attack from './movement/attack.js';
 import Fall from './movement/fall.js';
 import LeapCombat from './combat/leap-combat.js';
 
@@ -13,13 +12,17 @@ import Vector from '../util/vector.js'
 import Debug from '../util/debug.js'
 
 
+const WALK_SPEED = 6;
+const JUMP_SPEED = -4;
+const GRAB_DISTANCE = 10;
+
+
 class Player extends Character {
   constructor(app, input, world) {
     super();
     
     this.movements = {
       climb:  new Climb(this,  world.navigation, world.ground),
-      attack: new Attack(this, world.navigation, world.ground),
       soar:   new Soar(this,   world.navigation, world.ground),
       fall:   new Fall(this,   world.ground)
     }
@@ -55,12 +58,54 @@ class Player extends Character {
     
     this.movement.control(this.input);
     
+    this.stayInsideWorld();
+    
+    this.jump(this.input);
+    this.grab(this.input);
+    this.recover();
+    
     Debug.log("player.position", this.position);
-    if (this.position.y > 2500) { 
-      this.position.x = 675
-      this.position.y = 1435;
-      this.velocity = new Vector(0, 0); 
+    Debug.log("player.health", this.combat.health);
+  }
+  
+  stayInsideWorld() {
+    if (this.position.y <= 2500) { return; }
+
+    this.position.x = 675
+    this.position.y = 1435;
+    this.velocity = new Vector(0, 0); 
+  }
+  
+  jump(input) {
+    if (this.movement != this.movements.climb) { return; }
+    if (!input.jump) { return; }
+    if (this.movement.cooldown > 0) { return; }
+    
+    this.velocity.x = (input.stick.x * WALK_SPEED);
+    this.velocity.y = (input.stick.y * WALK_SPEED) + JUMP_SPEED;
+
+    this.movements.soar.activate();
+  }
+  
+  grab(input) {
+    if (this.movement != this.movements.soar) { return; }
+    if (input.jump) { return; }
+    
+    let [grabbed, position] = this.world.navigation.snap(
+      this.position,
+      GRAB_DISTANCE
+    );
+    
+    if (grabbed) {
+      this.position = position;
+      this.movements.climb.activate();
     }
+  }
+  
+  recover() {
+    if (this.combat.health >= 0) { return; }
+    
+    this.combat.heal();
   }
   
   hit() {
