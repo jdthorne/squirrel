@@ -27,6 +27,7 @@ PIXI.loader.add([
   "assets/squirrel-sword-attacking.svg",
   "assets/squirrel-claws-attacking.svg",
   "assets/pinecone.svg",
+  "assets/explosion.svg",
   "assets/snail-slug.svg",
   "assets/pigeon-flying0.svg",
   "assets/pigeon-flying1.svg",

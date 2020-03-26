@@ -39,7 +39,7 @@ class Projectile extends Object {
     let world = this.combat.character.world;
     
     world.objects.add(new Effect({
-      asset: "assets/nom.svg",
+      asset: "assets/explosion.svg",
       position: this.position,
       scale: 5
     }));
@@ -47,6 +47,12 @@ class Projectile extends Object {
     this.combat.enemiesWithin(DAMAGE_RANGE, this.position).forEach((enemy) => {
       enemy.combat.hit(this.damage);
       enemy.combat.aggro(240);
+
+      world.objects.add(new Effect({
+        asset: "assets/explosion.svg",
+        position: enemy.position,
+        lifespan: 30
+      }));
     });
     
     this.remove();
