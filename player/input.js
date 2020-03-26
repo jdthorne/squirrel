@@ -4,8 +4,6 @@ import Debug from '../util/debug.js';
 const STICK_RADIUS = 64;
 
 
-Debug.log("Loaded");
-
 class Input {
   constructor(app) {  
     // setup

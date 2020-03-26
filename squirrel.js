@@ -44,15 +44,30 @@ PIXI.loader.add([
     player.position.x = 675
     player.position.y = 1435;
     player.show(app);
-  
-    function render() {
-      world.tick();
-      input.tick();
-      camera.tick();
-      player.tick();
     
-      app.renderer.render(app.stage);
-      requestAnimationFrame(render);
+    let msAverage = 0;
+    function time(fn) {
+      let start = (new Date()).getTime();
+      
+      fn();
+      
+      let end = (new Date()).getTime();
+      let ms = end - start;      
+      msAverage = (0.9 * msAverage) + (0.1 * ms);
+      
+      Debug.log("ms", Math.round(msAverage));
+    }
+    
+    function render() {
+      time(() => {
+        world.tick();
+        input.tick();
+        camera.tick();
+        player.tick();
+      
+        app.renderer.render(app.stage);
+        requestAnimationFrame(render);
+      });
     }
     
     render();

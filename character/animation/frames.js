@@ -12,7 +12,6 @@ class Frames extends Animation {
     this.progress = (this.progress + progress) % 1;
     
     let currentFrame = Math.floor(this.progress * this.sprites.length);
-    Debug.log("frames.animate", currentFrame);
     
     this.sprites.forEach((sprite, index) => {
       sprite.visible = (index == currentFrame);

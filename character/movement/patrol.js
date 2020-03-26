@@ -46,10 +46,6 @@ class Patrol extends Movement {
     if (this.options.level) {
       let horizontalMovement = new Vector({ x: this.character.position.x - startPosition.x, y: 0 }).normalized();
       this.aim(horizontalMovement);
-      
-      Debug.log("level", horizontalMovement);
-      Debug.log("level.rotation", this.character.rotation);
-      Debug.log("level.scale", this.character.scale.x);
     } else {
       this.aim(this.character.position.minus(startPosition), { smooth: smooth });
     }

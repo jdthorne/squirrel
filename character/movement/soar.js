@@ -12,8 +12,6 @@ class Soar extends Movement {
     
     this.navigation = navigation;
     this.ground = ground;
-    
-    Debug.log("soar.got-ground? " + !!ground);
   }
   
   control(input) {

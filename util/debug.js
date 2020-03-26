@@ -1,4 +1,6 @@
-var logs = {};
+var logs = {
+  messages: ["loading..."]
+};
 
 var debug = {
   log: function(item, value = null) {
