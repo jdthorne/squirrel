@@ -25,7 +25,7 @@ class Combat {
       sprite.position.y = 30;
       
       sprite.scale.x = 0.075 * 0.75;
-      sprite.scale.y = 0.075 * 0.75;
+      sprite.scale.y = 0.075 * 0.5;
       
       sprite.anchor.x = 0.5;
       sprite.anchor.y = 0.5;

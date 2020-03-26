@@ -28,12 +28,12 @@ class Climb extends Movement {
     this.cooldown -= 1;
           
     // move
-    if (input.stick.length() < 0.2) {
+    if (input.move.length() < 0.2) {
       this.character.velocity.x = 0;
       this.character.velocity.y = 0;
     } else {
-      this.character.velocity.x = input.stick.x * WALK_SPEED;
-      this.character.velocity.y = input.stick.y * WALK_SPEED;
+      this.character.velocity.x = input.move.x * WALK_SPEED;
+      this.character.velocity.y = input.move.y * WALK_SPEED;
     }
 
     // grab

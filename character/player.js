@@ -17,6 +17,7 @@ import Debug from '../util/debug.js'
 
 const WALK_SPEED = 6;
 const JUMP_SPEED = -4;
+
 const GRAB_DISTANCE = 10;
 
 
@@ -43,12 +44,9 @@ class Player extends Character {
         "assets/squirrel-running4.svg",
       ], { scale: 1.2 }),
 
-      // attacking animations are specific to each weapon
       swordCharge:      new Frames(this, ["assets/squirrel-sword-charging.svg"], { scale: 1.2 }),
       swordAttack:      new Frames(this, ["assets/squirrel-sword-attacking.svg"], { scale: 1.2 }),
       clawsAttack:      new Frames(this, ["assets/squirrel-claws-attacking.svg"], { scale: 1.2 }),
-      // attack:      new Frames(this, ["assets/squirrel-attacking.svg"], { scale: 1.2 }),
-      // attackRelax: new Frames(this, ["assets/squirrel-running1.svg"], { scale: 1.2 }),
     }    
     this.animations.stand.activate();
     
@@ -100,8 +98,8 @@ class Player extends Character {
     if (!input.jump) { return; }
     if (this.movement.cooldown > 0) { return; }
     
-    this.velocity.x = (input.stick.x * WALK_SPEED);
-    this.velocity.y = (input.stick.y * WALK_SPEED) + JUMP_SPEED;
+    this.velocity.x = (input.move.x * WALK_SPEED);
+    this.velocity.y = (input.move.y * WALK_SPEED) + JUMP_SPEED;
 
     this.movements.soar.activate();
     this.combat.arm();
@@ -129,7 +127,10 @@ class Player extends Character {
     } 
     
     if (this.combat.armed && input.jump) {
-      this.combat.attack(this.combat.weapons.claws);
+      let weapon = this.combat.weapons.claws;
+      if (input.light) { weapon = this.combat.weapons.sword; }
+  
+      this.combat.attack(weapon);
     } else {
       this.combat.hold();
       this.animations.soar.activate();

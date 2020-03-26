@@ -28,8 +28,8 @@ class Soar extends Movement {
   
   control(input) {
     // push
-    this.character.velocity.x += input.stick.x * SPEED;
-    this.character.velocity.y += input.stick.y * SPEED;
+    this.character.velocity.x += input.move.x * SPEED;
+    this.character.velocity.y += input.move.y * SPEED;
     
     // fall
     this.character.velocity.y -= GRAVITY;

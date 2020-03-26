@@ -35,7 +35,7 @@ class World {
   }
   
   load(done) {
-    fetch("assets/demo-3-v2.svg")
+    fetch("assets/demo-3-v3.svg")
       .then(response => response.text())
       .then(response => {
         let dom = new DOMParser().parseFromString(response, 'image/svg+xml');

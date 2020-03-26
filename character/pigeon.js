@@ -33,7 +33,7 @@ class Pigeon extends Character {
     
     this.movements.patrol.activate();
 
-    this.combat = new TouchCombat(this, { health: 30, range: COMBAT_RANGE });
+    this.combat = new TouchCombat(this, { health: 25, range: COMBAT_RANGE });
   }
   
   tick() {
