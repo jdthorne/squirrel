@@ -2,7 +2,7 @@
 import Character from './character.js';
 
 import Patrol from './movement/patrol.js';
-import Fly from './movement/fly.js';
+import Direct from './movement/direct.js';
 
 import Frames from './animation/frames.js';
 import TouchCombat from './combat/touch-combat.js';
@@ -26,9 +26,9 @@ class Pigeon extends Character {
 
     this.movements = {
       patrol: new Patrol(this, path, SPEED, { level: true }),
-      escape: new Fly(this, SPEED * 3),
-      attack: new Fly(this, SPEED),
-      cruise: new Fly(this, SPEED),
+      escape: new Direct(this, SPEED * 3),
+      attack: new Direct(this, SPEED),
+      cruise: new Direct(this, SPEED),
     };
     
     this.movements.patrol.activate();

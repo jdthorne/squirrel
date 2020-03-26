@@ -4,11 +4,9 @@ import Vector from '../../util/vector.js';
 import Movement from './movement.js';
 
 
-class Fly extends Movement {
+class Direct extends Movement {
 
-  // Fly: move directly to a target
-  // 
-  // (todo: rename?)
+  // Direct: move directly to a target
 
   constructor(character, speed) {
     super(character);
@@ -45,4 +43,4 @@ class Fly extends Movement {
   }
 }
 
-export default Fly;
+export default Direct;
