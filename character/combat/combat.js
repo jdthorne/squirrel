@@ -54,7 +54,7 @@ class Combat {
     let healthFraction = this.health / this.healthMax;
     
     this.healthBar.visible = true;
-    this.healthBox.visible = true;
+    // this.healthBox.visible = true;
     
     this.healthBar.scale.x = this.healthBox.scale.x * healthFraction;
     

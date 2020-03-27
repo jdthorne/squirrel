@@ -17,6 +17,7 @@ class Projectile extends Object {
     this.velocity = options.velocity;
     this.damage = options.damage;
     
+    this.rotation = options.rotation;
     this.spin = 0.5 - Math.random();
   }
   
@@ -27,6 +28,8 @@ class Projectile extends Object {
     if (this.life <= 0) { this.remove(); }
     
     this.sprite.rotation += this.spin;
+    if (this.rotation) { this.sprite.rotation = this.rotation; }
+    
     this.position = this.position.plus(this.velocity);
     
     let triggers = this.combat.enemiesWithin(TRIGGER_RANGE, this.position);

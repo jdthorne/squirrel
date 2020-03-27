@@ -27,6 +27,7 @@ class Ranged extends Weapon {
       this.character.combat.disarm();
     } else {
       this.animations.charging.activate();
+      this.animations.charging.animateTo(this.charge / this.minimumCharge);
     }
   }
   
@@ -43,7 +44,8 @@ class Ranged extends Weapon {
       position: this.character.position,
       velocity: velocity,
       combat: this.character.combat,
-      damage: this.damage
+      damage: this.damage,
+      rotation: velocity.angle()
     }));
   }
 

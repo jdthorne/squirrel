@@ -13,6 +13,10 @@ class Vector {
     }
   }
   
+  angle() {
+    return Math.atan2(this.y, this.x);
+  }
+  
   length() {
     return Math.sqrt(this.lengthSquared());
   }

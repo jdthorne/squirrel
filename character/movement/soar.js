@@ -1,6 +1,7 @@
 import Movement from './movement.js';
 
-const SPEED = 0.2;
+const SPEED_X = 0.35;
+const SPEED_Y = 0.2;
 
 const GRAVITY = -0.5;
 
@@ -28,8 +29,8 @@ class Soar extends Movement {
   
   control(input) {
     // push
-    this.character.velocity.x += input.move.x * SPEED;
-    this.character.velocity.y += input.move.y * SPEED;
+    this.character.velocity.x += input.move.x * SPEED_X;
+    this.character.velocity.y += input.move.y * SPEED_Y;
     
     // fall
     this.character.velocity.y -= GRAVITY;

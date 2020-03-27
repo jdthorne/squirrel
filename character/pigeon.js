@@ -21,7 +21,8 @@ class Pigeon extends Character {
       "assets/pigeon-flying0.svg",
       "assets/pigeon-flying1.svg",
     ], {
-      scale: 1.5
+      scale: 1.5,
+      repeat: true
     });
 
     this.movements = {

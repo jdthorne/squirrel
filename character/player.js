@@ -43,12 +43,21 @@ class Player extends Character {
         "assets/squirrel-running2.svg",
         "assets/squirrel-running3.svg",
         "assets/squirrel-running4.svg",
-      ], { scale: 1.2 }),
+      ], { 
+        scale: 1.2,
+        repeat: true
+      }),
 
       swordCharge:      new Frames(this, ["assets/squirrel-sword-charging.svg"], { scale: 1.2 }),
       swordAttack:      new Frames(this, ["assets/squirrel-sword-attacking.svg"], { scale: 1.2 }),
       clawsAttack:      new Frames(this, ["assets/squirrel-claws-attacking.svg"], { scale: 1.2 }),
-      pineconeCharge:   new Frames(this, ["assets/squirrel-pinecone-charging.svg"], { scale: 1.2 }),
+      pineconeCharge:   new Frames(this, [
+        "assets/squirrel-pinecone-charging0.svg",
+        "assets/squirrel-pinecone-charging1.svg"
+      ], { 
+        scale: 1.2,
+        repeat: false
+      }),
     }
     this.animations.stand.activate();
     

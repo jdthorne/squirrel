@@ -14,7 +14,7 @@ class Camera {
   
   tick() {
     // zoom    
-    let zoom = 1.7 - (this.player.velocity.length() / 12);
+    let zoom = 2.0 - (this.player.velocity.length() * 0.1);
     if (zoom > 2.0) { zoom = 2.0; }
     if (zoom < 1.0) { zoom = 1.0; }
     
