@@ -4,7 +4,9 @@ import Fall from './movement/fall.js';
 
 
 class Character {
-  constructor() {
+  constructor(world) {
+    this.world = world;
+    
     this.position = new Vector();
     this.velocity = new Vector();
     this.scale = new Vector(1, 1);

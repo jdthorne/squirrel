@@ -23,8 +23,8 @@ const GRAB_DISTANCE = 10;
 
 
 class Player extends Character {
-  constructor(app, input, world) {
-    super();
+  constructor(world, input) {
+    super(world);
     
     this.movements = {
       climb:  new Climb(this,  world.navigation, world.ground),
@@ -67,7 +67,6 @@ class Player extends Character {
       }
     });
     
-    this.app = app;
     this.input = input;
     this.world = world;
     

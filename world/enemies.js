@@ -11,9 +11,10 @@ const ENEMY_CLASSES = {
 
 
 class Enemies extends Layer {
-  constructor() {
+  constructor(world) {
     super();
     
+    this.world = world;
     this.enemies = [];
   }
   
@@ -45,7 +46,7 @@ class Enemies extends Layer {
     if (!enemyClass) { return; }
     
     this.paths.forEach((path) => {
-      this.enemies.push(new enemyClass(path));
+      this.enemies.push(new enemyClass(this.world, path));
     });
   }
 }

@@ -6,9 +6,10 @@ class Object {
     this.scale = options.scale || 1;
   }
   
-  show(layer, group) {
+  show(layer, group, world) {
     this.layer = layer;
     this.group = group;
+    this.world = world;
     
     let sprite = new PIXI.Sprite(
       PIXI.loader.resources[this.asset].texture

@@ -16,6 +16,9 @@ class Direct extends Movement {
   
   activate(target, onArrival) {
     super.activate();
+
+    let [hit, ground] = this.character.world.ground.enforce(target);
+    if (hit) {  target = ground; }
     
     this.target = target;
       

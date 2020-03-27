@@ -31,17 +31,17 @@ class Ranged extends Weapon {
   }
   
   fire() {
-    let direction = new Vector(0, 1);
+    let velocity = new Vector(this.character.velocity.x, this.character.velocity.y + PROJECTILE_SPEED);
     
     let target = this.findClosestEnemy();
     if (target) {
-      direction = target.position.minus(this.character.position).normalized();
+      velocity = target.position.minus(this.character.position).normalized().multipliedBy(PROJECTILE_SPEED);
     }
     
     this.character.world.objects.add(new Projectile({
       asset: "assets/pinecone.svg",
       position: this.character.position,
-      velocity: direction.multipliedBy(PROJECTILE_SPEED),
+      velocity: velocity,
       combat: this.character.combat,
       damage: this.damage
     }));

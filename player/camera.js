@@ -31,9 +31,27 @@ class Camera {
     
     this.position.interpolate(target, 0.1);
     
+    // bound
+    let worldSize = this.world.foreground.sprite.texture; // width and height
+    let viewportSize = {
+      width:  window.innerWidth  / this.zoom,
+      height: window.innerHeight / this.zoom
+    };
+
+    let xMin = -worldSize.width + (viewportSize.width / 2);
+    let xMax =                0 - (viewportSize.width / 2);
+    if (this.position.x < xMin) { this.position.x = xMin; }
+    if (this.position.x > xMax) { this.position.x = xMax; }
+    
+    Debug.log("camera.x", this.position.x);
+    
+    let yMin = -worldSize.height + (viewportSize.height / 2);
+    if (this.position.y < yMin) { this.position.y = yMin; }    
+    
+    // apply
     this.app.stage.x = (this.position.x * this.app.stage.scale.x) + (window.innerWidth / 2);
     this.app.stage.y = (this.position.y * this.app.stage.scale.y) + (window.innerHeight / 2);
-    
+        
     // parallax
     if (this.world.background && this.world.background.sprite) {
       this.world.background.sprite.x = -this.position.x * 0.2;

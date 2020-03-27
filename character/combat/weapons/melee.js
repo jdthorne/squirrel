@@ -49,6 +49,8 @@ class Melee extends Weapon {
   
     // do damage
     combat.enemies().forEach((enemy) => {
+      if (enemy.combat.iframes > 0) { return; }
+      
       let distance = enemy.position.minus(this.character.position).length();
       
       if (distance < DAMAGE_RANGE) {
@@ -62,7 +64,9 @@ class Melee extends Weapon {
       }
     });
     
-    combat.disarm();
+    if (!this.options.staysArmed) {
+      combat.disarm();
+    }
   }
   
   deactivate() {

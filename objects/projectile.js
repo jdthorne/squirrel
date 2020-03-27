@@ -33,16 +33,24 @@ class Projectile extends Object {
     if (triggers.length > 0) {
       this.hit();
     }
+    
+    let [ground, _] = this.world.ground.enforce(this.position);
+    if (ground) {
+      this.hit();
+    }
   }
   
   hit() {
-    let world = this.combat.character.world;
+    let world = this.world;
     
-    world.objects.add(new Effect({
-      asset: "assets/explosion.svg",
-      position: this.position,
-      scale: 5
-    }));
+    for (let i = 0; i < 3; i++) {
+      world.objects.add(new Effect({
+        asset: "assets/explosion.svg",
+        position: this.position,
+        scale: 5,
+        alpha: 0.6
+      }));
+    }
     
     this.combat.enemiesWithin(DAMAGE_RANGE, this.position).forEach((enemy) => {
       enemy.combat.hit(this.damage);

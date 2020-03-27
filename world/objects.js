@@ -1,5 +1,9 @@
 
 class Objects {
+  constructor(world) {
+    this.world = world;
+  }
+
   show(app) {
     let group = new PIXI.Container();
     this.group = group;
@@ -9,7 +13,7 @@ class Objects {
   }
 
   add(object) {
-    object.show(this, this.group);
+    object.show(this, this.group, this.world);
     this.objects.push(object);
   }
   

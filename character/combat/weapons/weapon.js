@@ -5,6 +5,7 @@ class Weapon {
     
     this.damage = options.damage;
     this.animations = options.animations || {};
+    this.options = options;
   }
 
   activate() { }

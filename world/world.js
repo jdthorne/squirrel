@@ -13,8 +13,8 @@ class World {
     this.foreground = new Layer();
     this.background = new Layer();
     this.ground = new Ground();
-    this.enemies = new Enemies();    
-    this.objects = new Objects();
+    this.enemies = new Enemies(this);
+    this.objects = new Objects(this);
   }
 
   show(app) {

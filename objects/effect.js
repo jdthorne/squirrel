@@ -10,6 +10,7 @@ class Effect extends Object {
     this.life = this.lifespan;
     
     this.spin = 0.5 - Math.random();
+    this.alpha = options.alpha || 1;
   }
   
   tick() {
@@ -17,7 +18,7 @@ class Effect extends Object {
     
     this.life -= 1;
     this.sprite.rotation += 0.2 * this.spin;
-    this.sprite.alpha = this.life / this.lifespan;
+    this.sprite.alpha = (this.life / this.lifespan) * this.alpha;
     
     let scale = 0.75 + (((this.lifespan - this.life) / this.lifespan) * 0.25);
     this.sprite.scale.x = 0.075 * scale * this.scale;

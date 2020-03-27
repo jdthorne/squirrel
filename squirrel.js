@@ -41,7 +41,7 @@ PIXI.loader.add([
     world.show(app);
     
     let input = new Input(app);
-    let player = new Player(app, input, world);
+    let player = new Player(world, input);
     let camera = new Camera(app, player, world);
     
     window.player = player;

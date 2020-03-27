@@ -10,8 +10,8 @@ const COMBAT_RANGE = 50.0;
 
 
 class SnailSlug extends Character {
-  constructor(path) {
-    super();
+  constructor(world, path) {
+    super(world);
     
     this.animation = new Squish(this, "assets/snail-slug.svg");
     this.movement = new Patrol(this, path, SPEED, this.animation);

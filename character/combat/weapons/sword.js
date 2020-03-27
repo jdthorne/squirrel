@@ -7,8 +7,9 @@ class Sword extends Melee {
     super(character, {
       animations: animations,
       
-      minimumCharge: 20.0,
-      damage: 150
+      minimumCharge: 13.0,
+      damage: 150,
+      staysArmed: true
     });
   }
 }

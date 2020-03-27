@@ -14,8 +14,8 @@ const ESCAPE_DISTANCE = 200.0;
 
 
 class Pigeon extends Character {
-  constructor(path) {
-    super();
+  constructor(world, path) {
+    super(world);
     
     this.animation = new Frames(this, [
       "assets/pigeon-flying0.svg",
