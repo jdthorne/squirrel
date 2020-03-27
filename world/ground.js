@@ -27,6 +27,38 @@ class Ground extends Layer {
   }
   
   enforce(point) { // => [success, point]
+    var snapped = false;
+    
+    this.paths.forEach((path) => {
+      path.links.forEach((link) => {
+        let startToPoint = point.minus(link.start);
+        
+        let t = startToPoint.dot(link.direction);
+        
+        if (t < 0) { t = 0; }
+        if (t > link.length) { t = link.length; }
+        
+        let linkPoint = new Vector(
+          link.start.x + (link.direction.x * t),
+          link.start.y + (link.direction.y * t)
+        );
+        
+        let linkPointToPoint = point.minus(linkPoint);
+        
+        if (linkPointToPoint.length() < path.halfWidth) {
+          snapped = true;
+          
+          linkPointToPoint.normalize().multiplyBy(path.halfWidth);
+          point = linkPoint.add(linkPointToPoint);
+        }
+      });
+    });
+      
+    return [snapped, point];    
+  }
+  
+  /*
+  enforce(point) { // => [success, point]
     let snap = false;
     let snapTo = 0;
     
@@ -49,6 +81,7 @@ class Ground extends Layer {
     
     return [false, null];
   }
+  */
 }
 
 export default Ground;

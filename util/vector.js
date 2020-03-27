@@ -46,6 +46,7 @@ class Vector {
   multiplyBy(factor) {
     this.x *= factor;
     this.y *= factor;
+    return this;
   }
   
   multipliedBy(factor) {
@@ -72,6 +73,7 @@ class Vector {
   add(vector) {
     this.x += vector.x;
     this.y += vector.y;
+    return this;
   }
   
   dot(vector) {

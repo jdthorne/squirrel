@@ -35,7 +35,7 @@ class Climb extends Movement {
       this.character.velocity.x = input.move.x * WALK_SPEED;
       this.character.velocity.y = input.move.y * WALK_SPEED;
     }
-
+    
     // grab
     let availableSpeed = this.character.velocity.length();
     let direction      = this.character.velocity.normalized();
@@ -55,6 +55,12 @@ class Climb extends Movement {
       this.character.position = position;        
       
       if (availableSpeed < 1) { break; }
+    }
+
+    // push off ground
+    let [hit, ground] = this.character.world.ground.enforce(this.character.position);
+    if (hit) {
+      this.character.position = ground;
     }
 
     // animate
