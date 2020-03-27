@@ -51,7 +51,8 @@ class Projectile extends Thing {
         asset: "assets/explosion.svg",
         position: this.position,
         scale: 5,
-        alpha: 0.6
+        alpha: 0.6,
+        lifespan: 60
       }));
     }
     

@@ -19,8 +19,24 @@ class Enemies extends Layer {
   }
   
   show(app) {
+    this.app = app;
+
+    let group = new PIXI.Container();
+    this.group = group;
+    app.stage.addChild(group);
+
     this.enemies.forEach((enemy) => {
-      enemy.show(app);
+      enemy.show(group);
+    });
+  }
+  
+  reset() {        
+    this.enemies = this.enemies.map((enemy) => {
+      enemy.hide(this.group);
+      enemy = new enemy.constructor(this.world, enemy.path);
+      enemy.show(this.group);
+      
+      return enemy;
     });
   }
   

@@ -18,6 +18,7 @@ class SnailSlug extends Character {
       acorns: 1
     });
     
+    this.path = path;
     this.animations = {
       patrol: new Frames(this, ["assets/snail-slug.svg"]),
       fall:   new Frames(this, ["assets/snail-slug-dead.svg"])

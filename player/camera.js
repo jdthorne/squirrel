@@ -52,6 +52,7 @@ class Camera {
         
     // parallax
     this.world.artwork.parallax(this.position);
+    this.world.fade.center(this.position);
   }
 }
 

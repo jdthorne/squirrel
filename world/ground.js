@@ -56,32 +56,6 @@ class Ground extends Layer {
       
     return [snapped, point];    
   }
-  
-  /*
-  enforce(point) { // => [success, point]
-    let snap = false;
-    let snapTo = 0;
-    
-    for (var pi = 0; pi < this.paths.length; pi++) {
-      let path = this.paths[pi];
-      for (var li = 0; li < path.links.length; li++) {
-        let link = path.links[li];
-        
-        if (link.aabb.x1 > point.x) { continue; }
-        if (link.aabb.x2 < point.x) { continue; }
-        
-        if (point.y < link.aabb.y2) { continue; }
-        
-        let xf = (point.x - link.aabb.x1) / (link.aabb.x2 - link.aabb.x1);
-        let y = link.aabb.y1 + (xf * (link.aabb.y2 - link.aabb.y1));
-        
-        return [true, new Vector(point.x, y)];
-      }
-    }
-    
-    return [false, null];
-  }
-  */
 }
 
 export default Ground;

@@ -16,9 +16,6 @@ class Direct extends Movement {
   
   activate(target, onArrival) {
     super.activate();
-
-    let [hit, ground] = this.character.world.ground.enforce(target);
-    if (hit) {  target = ground; }
     
     this.target = target;
       
@@ -33,9 +30,17 @@ class Direct extends Movement {
     this.character.position.x += this.direction.x * this.speed;
     this.character.position.y += this.direction.y * this.speed;
 
+    let [hit, ground] = this.character.world.ground.enforce(this.character.position);
+    if (hit) { 
+      this.character.position = ground; 
+      this.onArrival();
+      return;
+    }
+
     this.distance -= this.speed;
     if (this.distance < 0 && !this.character.combat.dead) {
       this.onArrival();
+      return;
     }
         
     this.aim(this.direction);

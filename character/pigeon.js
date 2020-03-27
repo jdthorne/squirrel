@@ -17,6 +17,7 @@ class Pigeon extends Character {
   constructor(world, path) {
     super(world);
     
+    this.path = path;
     this.animation = new Frames(this, [
       "assets/pigeon-flying0.svg",
       "assets/pigeon-flying1.svg",

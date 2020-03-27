@@ -40,6 +40,7 @@ PIXI.loader.add([
   "assets/pickup.svg",
   "assets/health-bar.svg",
   "assets/health-box.svg",
+  "assets/fade.svg"
 ]).load(() => {  
   let world = new World();
   world.load(() => {
@@ -50,12 +51,10 @@ PIXI.loader.add([
     let camera = new Camera(app, player, world);
     
     window.player = player;
+    window.world = world;
 
-    // player.position.x = world.navigation.paths[0].links[0].start.x;
-    // player.position.y = world.navigation.paths[0].links[0].start.y + 100;
-    player.position.x = 675
-    player.position.y = 1435;
-    player.show(app);
+    player.position = world.triggers.find("Feeder").center();
+    player.show(app.stage);
     
     let msAverage = 0;
     function time(fn) {
@@ -98,4 +97,16 @@ document.addEventListener("DOMContentLoaded", () => {
   welcome.addEventListener("touchstart", () => {
     welcome.style.display = 'none';
   });
+  
+  // ----
+  
+  function resetAllEnemies() {
+    window.world.reset();
+    world.fade.firstRest = false;
+    world.fade.menu.style.opacity = 0;
+  }
+  
+  let rest = document.getElementById("rest");
+  rest.addEventListener("click",      () => { resetAllEnemies(); });
+  rest.addEventListener("touchstart", () => { resetAllEnemies(); });
 });

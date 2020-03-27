@@ -95,8 +95,10 @@ class Player extends Character {
     this.grab(this.input);
     this.attack(this.input);
     this.recover();
+    this.feeder();
     
     Debug.log("player.position", this.position);
+    Debug.log("player.velocity", this.velocity);
     Debug.log("player.health", this.combat.health);
     
     if (this.combat.enemies) {
@@ -170,9 +172,20 @@ class Player extends Character {
     this.movements.fall.activate();
   }
   
-  collect() {
+  collect(acorn) {
     this.acorns += 1;
     Debug.log("acorns", this.acorns);
+  }
+  
+  feeder() {
+    let feeder = this.world.triggers.find("Feeder");
+    let feeding = feeder.aabb().contains(this.position);
+    
+    if (feeding) {
+      this.world.fade.darken();
+    } else {
+      this.world.fade.lighten();
+    }
   }
 }
 

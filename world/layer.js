@@ -71,7 +71,7 @@ class Layer {
     );
     
     domPaths.forEach((domPath) => {
-      var path = new Path();
+      var path = new Path(domPath.getAttribute("id"));
       
       var domLinks = domPath.
                       getAttribute("d").

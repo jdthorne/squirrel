@@ -18,7 +18,7 @@ class Character {
 
     let group = new PIXI.Container();
     this.group = group;
-    app.stage.addChild(group);
+    app.addChild(group);
     
     if (this.animations) {
       Object.keys(this.animations).forEach((a) => {
@@ -32,7 +32,11 @@ class Character {
     if (this.combat) {
       this.combat.show(group);
     }
-  } 
+  }
+  
+  hide(app) {
+    app.removeChild(this.group);
+  }
   
   tick() {
     if (this.movement) { this.movement.tick(); }

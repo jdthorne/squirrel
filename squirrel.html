@@ -28,6 +28,8 @@
       font-weight: bold;
       z-index: 200;
       text-shadow: -1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black, 1px -1px 0 black;
+      
+      display: none;
     }
     
     #welcome {
@@ -64,6 +66,20 @@
       background-image: url(assets/introduction-instructions.svg);
       background-position: center top;
     }
+    
+    #rest {
+      position: fixed;
+      top: 5vh;
+      left: 5vw;
+      right: 5vw;
+      height: 10vh;
+
+      background-image: url(assets/rest.svg);
+      background-position: center top;      
+
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
   </style>
   <script src="pixi.min.js"></script>
   <script src="squirrel.js" type="module"></script>
@@ -75,6 +91,10 @@
     <div class="instructions"> </div>
     <div class="movement"> </div>
     <div class="jump"> </div>
+  </div>
+  
+  <div id="rest" style="opacity: 0">
+  
   </div>
 </body>
 </html>

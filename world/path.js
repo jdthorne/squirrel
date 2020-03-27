@@ -1,7 +1,10 @@
 import { flatten, sum } from '../util/array.js'
+import AABB from '../util/aabb.js';
+
 
 class Path {
-  constructor() {
+  constructor(id) {
+    this.id = id;
     this.links = [];
     this.width = 1;
   }
@@ -16,6 +19,21 @@ class Path {
   
   length() {
     return sum(this.links.map((l) => l.length));
+  }
+  
+  center() {
+    return this.aabb().center;
+  }
+  
+  aabb() {
+    if (!this._aabb) {
+      this._aabb = new AABB();
+      this.links.forEach((link) => {
+        this._aabb.addPoints(link.points);
+      });
+    }
+    
+    return this._aabb;
   }
   
   pointAtLength(length) {
