@@ -50,6 +50,7 @@ class Melee extends Weapon {
     // do damage
     combat.enemies().forEach((enemy) => {
       if (enemy.combat.iframes > 0) { return; }
+      if (enemy.combat.dead) { return; }
       
       let distance = enemy.position.minus(this.character.position).length();
       

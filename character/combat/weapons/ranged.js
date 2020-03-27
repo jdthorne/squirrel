@@ -53,7 +53,10 @@ class Ranged extends Weapon {
     let closestEnemyDistance = Infinity;
     let closestEnemy = null;
   
-    this.character.combat.enemies().forEach((enemy) => {      
+    this.character.combat.enemies().forEach((enemy) => {
+      if (enemy.combat.iframes > 0) { return; }
+      if (enemy.combat.dead) { return; }
+      
       let distance = this.character.position.minus(enemy.position).length();
       
       if (distance < closestEnemyDistance) {

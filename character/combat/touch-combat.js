@@ -6,13 +6,16 @@ import Effect from '../../objects/effect.js';
 class TouchCombat extends Combat {
   constructor(character, options) {
     super(character, options);
-    
+
     this.range = options.range;
   }
 
   tick() {
     super.tick();
-    if (this.dead) { return; }
+    if (this.dead) { 
+      this.fade(); 
+      return; 
+    }
     
     this.closestEnemyDistance = Infinity;
     this.closestEnemy = null;
@@ -34,7 +37,13 @@ class TouchCombat extends Combat {
         enemy.combat.hit(40);
         this.aggrivation = 0;
       }
-    });
+    });    
+  }
+  
+  fade() {
+    if (!this.character.movement.grounded) { return; }
+    
+    this.character.group.alpha -= 0.01;
   }
 }
 

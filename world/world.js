@@ -5,24 +5,20 @@ import Enemies from './enemies.js'
 import Layer from './layer.js'
 import Objects from './objects.js'
 import Ground from './ground.js'
+import Artwork from './artwork.js'
 
 
 class World {
   constructor() {
+    this.artwork = new Artwork();
     this.navigation = new Navigation();
-    this.foreground = new Layer();
-    this.background = new Layer();
     this.ground = new Ground();
     this.enemies = new Enemies(this);
     this.objects = new Objects(this);
   }
 
   show(app) {
-    this.background.show(app);
-    this.background.scale(0.8);
-    
-    this.foreground.show(app);
-    
+    this.artwork.show(app);    
     this.enemies.show(app);
     this.objects.show(app);
     
@@ -35,7 +31,7 @@ class World {
   }
   
   load(done) {
-    fetch("assets/demo-3-v3.svg")
+    fetch("assets/demo-3.svg")
       .then(response => response.text())
       .then(response => {
         let dom = new DOMParser().parseFromString(response, 'image/svg+xml');
@@ -49,14 +45,13 @@ class World {
           if (!/^[A-Z]-/.test(id)) { return; }
           
           let loadInto = {
-            A: this.foreground,
-            B: this.background,
+            A: this.artwork,
             N: this.navigation,
             E: this.enemies,
             G: this.ground,
           }[id[0]];
           
-          if (loadInto) { loadInto.load(group); }
+          if (loadInto) { loadInto.load(group); }          
         });
         
         if (done) { done(); }

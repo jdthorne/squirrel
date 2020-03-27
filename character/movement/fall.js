@@ -45,6 +45,8 @@ class Fall extends Movement {
         this.character.velocity.x *= 0.95;
         this.character.velocity.y = 0;
         this.character.rotation = 0;
+        
+        this.grounded = true;
       }
     }
    

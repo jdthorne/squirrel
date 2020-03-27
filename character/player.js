@@ -96,6 +96,10 @@ class Player extends Character {
     
     Debug.log("player.position", this.position);
     Debug.log("player.health", this.combat.health);
+    
+    if (this.combat.enemies) {
+      Debug.log("enemies", this.combat.enemies().filter((e) => !e.combat.dead).length);
+    }
   }
   
   stayInsideWorld() {

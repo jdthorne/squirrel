@@ -66,24 +66,26 @@ class Gamepad {
     
     this.r1 = false;
     this.r2 = false;
+    
+    this.status = "not connected";
   }
   
   tick() {
     if (!navigator.getGamepads) { 
-      Debug.log("gamepad", "not supported");
-      this.reset(); 
+      this.reset();
+      this.status = "not supported";
       return;
     }
     
     let gamepad = navigator.getGamepads()[0];
     if (!gamepad) {
-      Debug.log("gamepad", "not connected"); 
       this.reset();
+      this.status = "not connected";
       return;
     }
     
-    Debug.log("gamepad", "connected");
     // this.debug(gamepad);
+    this.status = "connected";
     
     this.left.value.x  =  gamepad.axes[0];
     this.left.value.y  = -gamepad.axes[1];
@@ -146,9 +148,6 @@ class Input {
     
     this.touches.left.handle(touches);
     this.touches.right.handle(touches);
-    
-    Debug.log("touches.left", this.touches.left.value);
-    Debug.log("touches.left", this.touches.right.value);
   }
   
   tick() {
@@ -164,7 +163,8 @@ class Input {
       move: this.move,
       jump: this.jump,
       light: this.light,
-      heavy: this.heavy
+      heavy: this.heavy,
+      gamepad: this.gamepad.status
     });
   }
 }

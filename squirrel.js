@@ -72,7 +72,7 @@ PIXI.loader.add([
         input.tick();
         camera.tick();
         player.tick();
-      
+
         app.renderer.render(app.stage);
         requestAnimationFrame(render);
       });

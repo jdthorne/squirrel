@@ -46,7 +46,7 @@ class LeapCombat extends Combat {
   }
   
   enemies() {
-    return this.character.world.enemies.enemies;
+    return this.character.world.enemies.enemies || [];
   }
   
   tick() {

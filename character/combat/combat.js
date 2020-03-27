@@ -57,8 +57,6 @@ class Combat {
     // this.healthBox.visible = true;
     
     this.healthBar.scale.x = this.healthBox.scale.x * healthFraction;
-    
-    Debug.log("combat.healthFraction", healthFraction);
   }
 
   hit(damage) {
@@ -85,7 +83,7 @@ class Combat {
     if (this.character.movements && this.character.movements.fall) {
       this.character.movements.fall.activate();
     } else {
-      this.character.movement = new Fall(this.character);
+      this.character.movement = new Fall(this.character, this.character.world.ground);
     }
   }
   
@@ -106,7 +104,7 @@ class Combat {
   }
   
   vulnerable() {
-    return true;
+    return !this.dead;
   }
   
   tick() {

@@ -56,6 +56,9 @@ class Projectile extends Object {
     }
     
     this.combat.enemiesWithin(DAMAGE_RANGE, this.position).forEach((enemy) => {
+      if (enemy.combat.dead) { return; }
+      if (enemy.combat.iframes > 0) { return; }
+
       enemy.combat.hit(this.damage);
       enemy.combat.aggro(240);
 
