@@ -1,12 +1,12 @@
 
-import Object from './object.js';
+import Thing from './thing.js';
 import Effect from './effect.js';
 
 
 const TRIGGER_RANGE = 50.0;
 const DAMAGE_RANGE = 200.0;
 
-class Projectile extends Object {
+class Projectile extends Thing {
   constructor(options = {}) {
     super(options);
 

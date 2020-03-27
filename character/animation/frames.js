@@ -2,7 +2,7 @@
 import Animation from './animation.js';
 
 class Frames extends Animation {
-  constructor(character, sprites, options) {
+  constructor(character, sprites, options = {}) {
     super(character, sprites, options);
     
     this.progress = 0;

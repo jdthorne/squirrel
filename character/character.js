@@ -22,8 +22,9 @@ class Character {
     
     if (this.animations) {
       Object.keys(this.animations).forEach((a) => {
-        this.animations[a].setup(group)
+        this.animations[a].setup(group);
       });
+      this.animation.activate();
     } else if (this.animation) {
       this.animation.setup(group);
     }
@@ -47,6 +48,8 @@ class Character {
       this.group.rotation = this.rotation;
     }
   }
+  
+  die() { }
 }
 
 

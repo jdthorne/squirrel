@@ -79,11 +79,13 @@ class Combat {
   
   die() {
     this.dead = true;
+    this.character.die();
     
     if (this.character.movements && this.character.movements.fall) {
       this.character.movements.fall.activate();
     } else {
       this.character.movement = new Fall(this.character, this.character.world.ground);
+      this.character.movement.activate();
     }
   }
   

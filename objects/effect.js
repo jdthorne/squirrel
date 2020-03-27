@@ -1,8 +1,8 @@
 
-import Object from './object.js';
+import Thing from './thing.js';
 
 
-class Effect extends Object {
+class Effect extends Thing {
   constructor(options = {}) {
     super(options);
     

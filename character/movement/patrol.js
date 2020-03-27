@@ -5,7 +5,7 @@ import Movement from './movement.js';
 
 
 class Patrol extends Movement {
-  constructor(character, path, speed, options) {
+  constructor(character, path, speed, options = {}) {
     super(character);
     
     this.path = path;

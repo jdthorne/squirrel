@@ -80,6 +80,8 @@ class Player extends Character {
     this.world = world;
     
     this.world.player = this;
+    
+    this.acorns = 0;
   }
   
   tick() {
@@ -166,6 +168,11 @@ class Player extends Character {
     if (this.movement == this.movements.attack) { return; }
     
     this.movements.fall.activate();
+  }
+  
+  collect() {
+    this.acorns += 1;
+    Debug.log("acorns", this.acorns);
   }
 }
 

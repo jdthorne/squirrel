@@ -11,8 +11,8 @@ class Animation {
     
     Object.keys(this.character.animations).forEach((animationName) => {
       let animation = this.character.animations[animationName];
-      
-      if (animation == this) {
+            
+      if (animation === this) {
         animation.show();
       } else {
         animation.hide();
