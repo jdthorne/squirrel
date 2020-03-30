@@ -22,10 +22,12 @@ class World {
   }
 
   show(app) {
+    this.navigation.show(app);
+
     this.artwork.show(app);
     this.enemies.show(app);
     this.objects.show(app);
-    this.fade.show(app);
+    this.fade.show(app);    
   }
   
   reset() {
@@ -54,7 +56,7 @@ class World {
           let loadInto = {
             A: this.artwork,
             N: this.navigation,
-            E: this.enemies,
+            // E: this.enemies,
             G: this.ground,
             T: this.triggers
           }[id[0]];

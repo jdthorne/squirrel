@@ -12,7 +12,7 @@ class Fade {
     sprite.anchor.x = 0.5;
     sprite.anchor.y = 0.5;
     
-    sprite.alpha = 1.0;
+    sprite.alpha = 0.0;
     
     app.stage.addChild(sprite);
     this.sprite = sprite;
@@ -26,6 +26,8 @@ class Fade {
   }
   
   darken() {
+    return;
+    
     if (this.sprite.alpha >= 1.0) { return; }
     
     this.sprite.alpha += FADE_RATE;

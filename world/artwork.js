@@ -1,4 +1,5 @@
-import Layer from './layer.js'
+
+import Tileset from './tiles/tileset.js'
 
 const PARALLAX_STRENGTH = 0.75;
 
@@ -19,35 +20,45 @@ class Artwork {
       let layer = this.layers[k];
       let index = parseFloat(k);
       
-      layer.show(app);
-      
-      layer.sprite.scale.x = 1.0 + index;
-      layer.sprite.scale.y = 1.0 + index;
+      layer.show(app.stage);
     });
   }
   
-  load(group) {
-    let id = group.getAttribute("serif:id");
+  load(svgData) {
+    let id = svgData.getAttribute("serif:id");
     let regex = /\[([+-][.\d]+)\]/;
     
-    let key = "0";
+    let parallax = 0;
     if (regex.test(id)) {
-      key = (parseFloat(regex.exec(id)[1]) * PARALLAX_STRENGTH).toString();
+      parallax = parseFloat(regex.exec(id)[1]) * PARALLAX_STRENGTH;
     }
     
-    if (!this.layers[key]) { this.layers[key] = new Layer(); }
+    let key = parallax.toString();
     
-    this.layers[key].load(group);
+    if (!this.layers[key]) { this.layers[key] = new Tileset(parallax); }
+    
+    this.layers[key].load(svgData);
   }
   
-  parallax(position) {
+  render(position, viewport) {
+    let tileCount = 0;
+    let budget = { 
+      tilesRendered: 1,
+      tilePadding: 2
+    };
+    
     Object.keys(this.layers).forEach((index) => {
       let layer = this.layers[index];
-      let offset = parseFloat(index);
       
-      layer.sprite.x = position.x * index;
-      layer.sprite.y = position.y * index;
+      layer.render(position, viewport, budget);
+      
+      tileCount += layer.tileCount;
     });
+    
+    Debug.log("artwork.tileCount", tileCount);
+    
+    // tile = 1024x1024x8bpp = 1MB
+    Debug.log("artwork.memory", tileCount + "MB");
   }
 }
 

@@ -30,8 +30,14 @@ class Camera {
     );
     
     this.position.interpolate(target, 0.1);
-    
-    // bound
+
+    // bound    
+    let viewportSize = {
+      width:  window.innerWidth  / this.zoom,
+      height: window.innerHeight / this.zoom
+    };
+
+    /*
     let worldSize = this.world.artwork.layers["0"].sprite.texture; // width and height
     let viewportSize = {
       width:  window.innerWidth  / this.zoom,
@@ -45,14 +51,15 @@ class Camera {
     
     let yMin = -worldSize.height + (viewportSize.height / 2);
     if (this.position.y < yMin) { this.position.y = yMin; }    
+    */
     
     // apply
     this.app.stage.x = (this.position.x * this.app.stage.scale.x) + (window.innerWidth / 2);
     this.app.stage.y = (this.position.y * this.app.stage.scale.y) + (window.innerHeight / 2);
         
-    // parallax
-    this.world.artwork.parallax(this.position);
-    this.world.fade.center(this.position);
+    // render artwork
+    this.world.artwork.render(this.position, viewportSize);
+    // this.world.fade.center(this.position);
   }
 }
 
