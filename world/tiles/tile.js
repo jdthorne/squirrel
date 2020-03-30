@@ -23,6 +23,8 @@ class Tile {
     this.loader = new PIXI.Loader();
     this.loader.add(name, this.textureData());
     this.loader.load((loader, resources) => {
+      this.texture = resources[name].texture;
+      
       let sprite = new PIXI.Sprite(
         resources[name].texture
       );
@@ -34,10 +36,17 @@ class Tile {
       
       parent.addChild(sprite);
     });
+    
+    this.parent = parent;
   }
   
   hide() {
+    
+  }
   
+  destroy() {
+    this.texture.destroy(true);
+    this.parent.removeChild(this.sprite);
   }
 
   textureData() {

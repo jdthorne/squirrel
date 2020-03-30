@@ -71,7 +71,23 @@ class Tileset {
   }
   
   unloadTiles(area, budget) {
-    // pass?
+    Object.keys(this.tiles).forEach((x) => {
+      Object.keys(this.tiles[x]).forEach((y) => {
+        if (x < area.x1 - budget.tilePadding) { this.unloadTileAt(x, y); }
+        if (y < area.y1 - budget.tilePadding) { this.unloadTileAt(x, y); }
+        
+        if (x > area.x2 + budget.tilePadding) { this.unloadTileAt(x, y); }
+        if (y > area.y2 + budget.tilePadding) { this.unloadTileAt(x, y); }
+      });
+    });
+  }
+  
+  unloadTileAt(x, y) {
+    if (!this.tiles[x][y]) { return; }
+    
+    this.tiles[x][y].destroy();
+    this.tiles[x][y] = null;
+    this.tileCount -= 1;
   }
 }
 

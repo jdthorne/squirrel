@@ -43,8 +43,8 @@ class Artwork {
   render(position, viewport) {
     let tileCount = 0;
     let budget = { 
-      tilesRendered: 1,
-      tilePadding: 2
+      tilesRendered: 4,
+      tilePadding: 4
     };
     
     Object.keys(this.layers).forEach((index) => {
@@ -55,9 +55,6 @@ class Artwork {
       tileCount += layer.tileCount;
     });
     
-    Debug.log("artwork.tileCount", tileCount);
-    
-    // tile = 1024x1024x8bpp = 1MB
     Debug.log("artwork.memory", tileCount + "MB");
   }
 }

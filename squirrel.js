@@ -88,15 +88,14 @@ PIXI.loader.add([
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  let welcome = document.getElementById("welcome");
+  let welcome = document.querySelector("#welcome");
   
-  welcome.addEventListener("click", () => {
+  let dismiss = () => {
     welcome.style.display = 'none';
-  });
-
-  welcome.addEventListener("touchstart", () => {
-    welcome.style.display = 'none';
-  });
+  };
+  
+  welcome.addEventListener("click", dismiss);
+  welcome.addEventListener("touchstart", dismiss);
   
   // ----
   
