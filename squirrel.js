@@ -53,7 +53,7 @@ PIXI.loader.add([
     window.player = player;
     window.world = world;
 
-    player.position = world.triggers.find("Feeder").center();
+    player.position = world.triggers.find("Start").center();
     player.show(app.stage);
     
     let msAverage = 0;

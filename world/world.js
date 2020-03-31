@@ -26,6 +26,8 @@ class World {
     this.enemies.show(app);
     this.objects.show(app);
     this.fade.show(app);    
+    
+    // this.navigation.show(app);
   }
   
   reset() {
@@ -38,7 +40,7 @@ class World {
   }
   
   load(done) {
-    fetch("assets/demo-3.svg")
+    fetch("assets/world.svg")
       .then(response => response.text())
       .then(response => {
         let dom = new DOMParser().parseFromString(response, 'image/svg+xml');

@@ -25,6 +25,11 @@ class Tile {
     this.loader.load((loader, resources) => {
       this.texture = resources[name].texture;
       
+      if (this.destroyed) { 
+        this.destroy();
+        return;
+      }
+      
       let sprite = new PIXI.Sprite(
         resources[name].texture
       );
@@ -33,7 +38,7 @@ class Tile {
       sprite.position.y = this.y * TILE_SIZE;
   
       this.sprite = sprite;
-      
+
       parent.addChild(sprite);
     });
     
@@ -45,8 +50,17 @@ class Tile {
   }
   
   destroy() {
-    this.texture.destroy(true);
-    this.parent.removeChild(this.sprite);
+    this.destroyed = true;
+    
+    if (this.texture) { 
+      this.texture.destroy(true); 
+      this.texture = null; 
+    }
+    
+    if (this.sprite) { 
+      this.parent.removeChild(this.sprite); 
+      this.sprite = null; 
+    }
   }
 
   textureData() {

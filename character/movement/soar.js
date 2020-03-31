@@ -22,7 +22,7 @@ class Soar extends Movement {
     let [hit, position] = this.ground.enforce(this.character.position);
     if (hit) {
       this.character.position = position;
-      this.character.movements.climb.activate();
+      // this.character.movements.climb.activate();
       return;
     }
   }

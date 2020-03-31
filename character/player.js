@@ -89,7 +89,7 @@ class Player extends Character {
     
     this.movement.control(this.input);
     
-    this.stayInsideWorld();
+    // this.stayInsideWorld();
     
     this.jump(this.input);
     this.grab(this.input);
@@ -178,6 +178,7 @@ class Player extends Character {
   }
   
   feeder() {
+    return;
     let feeder = this.world.triggers.find("Feeder");
     let feeding = feeder.aabb().contains(this.position);
     

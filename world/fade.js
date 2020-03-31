@@ -5,6 +5,8 @@ const SKY = 0x6899c9;
 
 class Fade {
   show(app) {
+    return;
+    
     this.app = app;
     
     let sprite = new PIXI.Sprite(
