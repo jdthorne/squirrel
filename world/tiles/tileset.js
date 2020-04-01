@@ -1,7 +1,7 @@
 
 import Tile from './tile.js';
 
-const TILE_SIZE = 1024;
+const TILE_SIZE = 512;
 
 let nextTilesetId = 0;
 

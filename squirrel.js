@@ -3,7 +3,7 @@ import Debug from './util/debug.js';
 let app = new PIXI.Application({
   width: 256, 
   height: 256, 
-  backgroundColor: 0x6899c9
+  backgroundColor: 0x62B5E2
 });
 app.renderer.autoResize = true;
 app.renderer.resize(window.innerWidth, window.innerHeight);
@@ -42,6 +42,7 @@ PIXI.loader.add([
   "assets/health-box.svg",
   "assets/fade.svg"
 ]).load(() => {  
+  console.log("loaded assets");
   let world = new World();
   world.load(() => {
     world.show(app);

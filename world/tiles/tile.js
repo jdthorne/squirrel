@@ -1,5 +1,6 @@
 
-const TILE_SIZE = 1024;
+const TILE_SIZE = 512;
+const SVG_SCALE = 2;
 
 let nextTileId = 0;
 let nextShow = 0;
@@ -20,27 +21,23 @@ class Tile {
   show(parent) {
     let name = this.name();
     
-    this.loader = new PIXI.Loader();
-    this.loader.add(name, this.textureData());
-    this.loader.load((loader, resources) => {
-      this.texture = resources[name].texture;
-      
-      if (this.destroyed) { 
-        this.destroy();
-        return;
-      }
-      
-      let sprite = new PIXI.Sprite(
-        resources[name].texture
-      );
-      
-      sprite.position.x = this.x * TILE_SIZE;
-      sprite.position.y = this.y * TILE_SIZE;
-  
-      this.sprite = sprite;
+    let svg = new PIXI.resources.SVGResource(this.textureData(), { scale: SVG_SCALE });
 
-      parent.addChild(sprite);
-    });
+    this.texture = PIXI.Texture.from(svg);
+      
+    let sprite = new PIXI.Sprite(
+      this.texture
+    );
+    
+    sprite.position.x = this.x * TILE_SIZE;
+    sprite.position.y = this.y * TILE_SIZE;
+    
+    sprite.scale.x = 1 / SVG_SCALE;
+    sprite.scale.y = 1 / SVG_SCALE;
+
+    this.sprite = sprite;
+
+    parent.addChild(sprite);
     
     this.parent = parent;
   }
