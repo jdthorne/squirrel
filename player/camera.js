@@ -18,6 +18,11 @@ class Camera {
     if (zoom > 2.0) { zoom = 2.0; }
     if (zoom < 1.0) { zoom = 1.0; }
     
+    let zoomTrigger = this.player.triggers.find((t) => { return t.id.startsWith("zoom "); });
+    if (zoomTrigger) {
+      zoom = parseFloat(zoomTrigger.id.split(" ")[1])
+    }
+    
     this.zoom = (zoom * 0.01) + (this.zoom * 0.99);
     
     this.app.stage.scale.x = this.zoom;

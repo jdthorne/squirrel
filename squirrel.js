@@ -44,18 +44,19 @@ PIXI.loader.add([
 ]).load(() => {  
   console.log("loaded assets");
   let world = new World();
+
   world.load(() => {
-    world.show(app);
-    
     let input = new Input(app);
-    let player = new Player(world, input);
+    let player = new Player(world, input);    
     let camera = new Camera(app, player, world);
     
+    world.player = player;    
+    world.show(app, player);
+
     window.player = player;
     window.world = world;
 
-    player.position = world.triggers.find("Start").center();
-    player.show(app.stage);
+    player.position = world.triggers.find("start").center();
     
     let msAverage = 0;
     function time(fn) {

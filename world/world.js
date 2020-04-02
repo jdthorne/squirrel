@@ -22,9 +22,11 @@ class World {
   }
 
   show(app) {
-    this.artwork.show(app);
+    this.artwork.show(app, 'back');
     this.enemies.show(app);
     this.objects.show(app);
+    this.player.show(app.stage);
+    this.artwork.show(app, 'front');
     this.fade.show(app);    
     
     // this.navigation.show(app);

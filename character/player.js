@@ -82,6 +82,7 @@ class Player extends Character {
     this.world.player = this;
     
     this.acorns = 0;
+    this.triggers = [];
   }
   
   tick() {
@@ -95,7 +96,7 @@ class Player extends Character {
     this.grab(this.input);
     this.attack(this.input);
     this.recover();
-    this.feeder();
+    this.trigger();
     
     Debug.log("player.position", this.position);
     Debug.log("player.velocity", this.velocity);
@@ -175,6 +176,14 @@ class Player extends Character {
   collect(acorn) {
     this.acorns += 1;
     Debug.log("acorns", this.acorns);
+  }
+  
+  trigger() {
+    this.triggers = this.world.triggers.filter((t) => {
+      return t.aabb().contains(this.position);
+    });
+    
+    Debug.log("triggers", this.triggers.map((t) => { return t.id; }));
   }
   
   feeder() {

@@ -9,7 +9,7 @@ class Artwork {
     this.layers = {};
   }
   
-  show(app) {
+  show(app, set) {
     let layerKeys = Object.keys(this.layers);    
     
     layerKeys = layerKeys.map((k) => parseFloat(k));
@@ -19,6 +19,10 @@ class Artwork {
     layerKeys.forEach((k) => {
       let layer = this.layers[k];
       let index = parseFloat(k);
+      
+      let isBack = (index <= 0);
+      let showBack = (set == 'back');
+      if (showBack != isBack) { return; }
       
       layer.show(app.stage);
     });

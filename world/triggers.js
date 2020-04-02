@@ -10,6 +10,10 @@ class Triggers extends Layer {
   find(id) {
     return this.paths.find((p) => { return p.id == id; });
   }
+  
+  filter(f) {
+    return this.paths.filter(f);
+  }
 }
 
 
