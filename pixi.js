@@ -12450,7 +12450,15 @@ var PIXI = (function (exports) {
 
 	            // Draw the Svg to the canvas
 	            var context = canvas
-	                .getContext('2d')
+	                .getContext('2d');
+	                
+	            if (!context) {
+                var err = new Error();
+                console.error("Error: no context!");
+                console.error(err.stack);
+	            }
+	                
+	            context
 	                .drawImage(tempImage, 0, 0, svgWidth, svgHeight, 0, 0, width, height);
 
 	            this$1._resolve();

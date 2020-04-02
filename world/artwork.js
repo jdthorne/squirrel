@@ -1,7 +1,7 @@
 
 import Tileset from './tiles/tileset.js'
 
-const PARALLAX_STRENGTH = 0.75;
+const PARALLAX_STRENGTH = 0.75 * 0.1;
 
 
 class Artwork {

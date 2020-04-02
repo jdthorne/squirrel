@@ -101,7 +101,8 @@ class Player extends Character {
     Debug.log("player.position", this.position);
     Debug.log("player.velocity", this.velocity);
     Debug.log("player.health", this.combat.health);
-    
+    Debug.log("player.acorns", this.acorns);
+
     if (this.combat.enemies) {
       Debug.log("enemies", this.combat.enemies().filter((e) => !e.combat.dead).length);
     }
@@ -175,7 +176,6 @@ class Player extends Character {
   
   collect(acorn) {
     this.acorns += 1;
-    Debug.log("acorns", this.acorns);
   }
   
   trigger() {

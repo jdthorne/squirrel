@@ -5,7 +5,6 @@ import Patrol from './movement/patrol.js';
 import Frames from './animation/frames.js';
 import TouchCombat from './combat/touch-combat.js';
 import Debris from '../objects/debris.js';
-import Pickup from '../objects/pickup.js';
 import Vector from '../util/vector.js';
 
 const SPEED = 0.5;
@@ -31,12 +30,6 @@ class SnailSlug extends Character {
   
   die() {
     super.die();
-
-    this.world.objects.add(new Pickup({
-      asset: "assets/acorn.svg",
-      position: this.position.clone(),
-      velocity: new Vector(2 * this.world.player.scale.x, -5)
-    }));
 
     this.world.objects.add(new Debris({
       asset: "assets/snail-slug-shell.svg",

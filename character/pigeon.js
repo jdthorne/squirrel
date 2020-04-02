@@ -15,7 +15,9 @@ const ESCAPE_DISTANCE = 200.0;
 
 class Pigeon extends Character {
   constructor(world, path) {
-    super(world);
+    super(world, {
+      acorns: Math.round(Math.random())
+    });
     
     this.path = path;
     this.animation = new Frames(this, [

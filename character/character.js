@@ -1,16 +1,19 @@
 
 import Vector from '../util/vector.js';
 import Fall from './movement/fall.js';
+import Pickup from '../objects/pickup.js';
 
 
 class Character {
-  constructor(world) {
+  constructor(world, options = {}) {
     this.world = world;
     
     this.position = new Vector();
     this.velocity = new Vector();
     this.scale = new Vector(1, 1);
     this.rotation = 0;
+    
+    this.acorns = options.acorns;
   }
   
   show(app) {
@@ -53,7 +56,22 @@ class Character {
     }
   }
   
-  die() { }
+  die() { 
+    if (!this.acorns) { return; }
+    
+    for (let i = 0; i < this.acorns; i++) {
+      this.world.objects.add(new Pickup({
+        asset: "assets/acorn.svg",
+        position: this.position.clone(),
+        velocity: new Vector(
+          (2 * Math.random()) + (2 * this.world.player.scale.x), 
+          (2 * Math.random()) - 5
+        )
+      }));
+    }
+    
+    this.acorns = 0;
+  }
 }
 
 
