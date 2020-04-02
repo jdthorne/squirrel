@@ -42,7 +42,6 @@ PIXI.loader.add([
   "assets/health-box.svg",
   "assets/fade.svg"
 ]).load(() => {  
-  console.log("loaded assets");
   let world = new World();
 
   world.load(() => {
