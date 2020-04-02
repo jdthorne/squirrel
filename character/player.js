@@ -130,7 +130,7 @@ class Player extends Character {
   
   grab(input) {
     if (this.movement != this.movements.soar) { return; }
-    if (input.jump) { return; }
+    if (input.jump && !this.movement.sliding) { return; }
     
     let [grabbed, position] = this.world.navigation.snap(
       this.position,
