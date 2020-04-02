@@ -26,7 +26,9 @@ class Ground extends Layer {
     app.stage.addChild(graphics);
   }
   
-  enforce(point) { // => [success, point]
+  enforce(point) { // => [success, point, normal, tangent]
+    var normal = null;
+    var tangent = null;
     var snapped = false;
     
     this.paths.forEach((path) => {
@@ -50,11 +52,14 @@ class Ground extends Layer {
           
           linkPointToPoint.normalize().multiplyBy(path.halfWidth);
           point = linkPoint.add(linkPointToPoint);
+          
+          normal = linkPointToPoint;
+          tangent = link.end.minus(link.start);
         }
       });
     });
       
-    return [snapped, point];    
+    return [snapped, point, normal];    
   }
 }
 
