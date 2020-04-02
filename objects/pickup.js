@@ -21,6 +21,7 @@ class Pickup extends Thing {
     
     this.iframes = 60;
     this.draw = 0;
+    this.value = options.value;
   }
   
   tick() {

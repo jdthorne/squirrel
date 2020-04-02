@@ -59,18 +59,26 @@ class Character {
   die() { 
     if (!this.acorns) { return; }
     
-    for (let i = 0; i < this.acorns; i++) {
-      this.world.objects.add(new Pickup({
-        asset: "assets/acorn.svg",
-        position: this.position.clone(),
-        velocity: new Vector(
-          (2 * Math.random()) + (2 * this.world.player.scale.x), 
-          (2 * Math.random()) - 5
-        )
-      }));
+    // distribute acorns amongst up to 10 drops
+    let drops = [];
+    for (; this.acorns > 0; this.acorns--) {
+      if (drops.length < 10) {
+        let drop = new Pickup({
+          asset: "assets/acorn.svg",
+          position: this.position.clone(),
+          velocity: new Vector(
+            (5 * Math.random()) + (2 * this.world.player.scale.x), 
+            (5 * Math.random()) - 5
+          ),
+          value: 1
+        });
+        
+        drops.push(drop);
+        this.world.objects.add(drop);
+      } else {
+        drops[Math.floor(Math.random() * 10)].value += 1;
+      }
     }
-    
-    this.acorns = 0;
   }
 }
 

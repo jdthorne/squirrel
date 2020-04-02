@@ -175,7 +175,7 @@ class Player extends Character {
   }
   
   collect(acorn) {
-    this.acorns += 1;
+    this.acorns += acorn.value;
   }
   
   trigger() {
