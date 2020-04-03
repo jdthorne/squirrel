@@ -48,7 +48,8 @@ class Artwork {
     let tileCount = 0;
     let budget = { 
       tilesRendered: 1,
-      tilePadding: 1
+      tilePaddingLoad: 0,
+      tilePaddingUnload: 4
     };
     
     Object.keys(this.layers).forEach((index) => {

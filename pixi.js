@@ -12455,7 +12455,12 @@ var PIXI = (function (exports) {
 	            if (!context) {
                 var err = new Error();
                 console.error("Error: no context!");
-                console.error(err.stack);
+                console.error(err.stack.toString().replace("\n", " / "));
+                
+                this$1.broken = true;
+                this$1._resolve();
+                this$1._resolve = null;
+                // return;
 	            }
 	                
 	            context

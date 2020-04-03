@@ -1,4 +1,6 @@
 
+import Timer from '../../util/timer.js';
+
 const TILE_SIZE = 256;
 const SVG_SCALE = 2;
 
@@ -23,8 +25,6 @@ class Tile {
     
     this.svg = new PIXI.resources.SVGResource(this.textureData(), { scale: SVG_SCALE });
     this.texture = PIXI.Texture.from(this.svg);
-    
-    // this.texture = PIXI.Texture.from(this.textureData());
     
     let sprite = new PIXI.Sprite(
       this.texture
